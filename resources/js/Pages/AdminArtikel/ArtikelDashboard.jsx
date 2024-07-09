@@ -1,8 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
 
 export default function ArtikelDashboard({ auth, artikel }) {
+    const handleDelete = (id) => {
+        if (confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
+            router.delete(`/manajemenartikel/${id}`);
+        }
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -25,107 +31,61 @@ export default function ArtikelDashboard({ auth, artikel }) {
                     </div>
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded">
-                        <table className="table text-black min-w-full text-center">
-                            <thead className=" border-b bg-orange-200">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Judul</th>
-                                    <th>Tanggal</th>
-                                    <th className="w-1/3">Isi Kegiatan</th>
-                                    <th>Gambar</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* <tr className="border-b py-5">
-                                    <td className="">2</td>
-                                    <td className="">Budi</td>
-                                    <td className="">Dia</td>
-                                    <td className=" text-wrap">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Excepturi dignissimos,
-                                        ullam assumenda cum dicta dolore impedit
-                                        quos, sunt ratione quod accusantium,
-                                        libero aliquam accusamus nihil labore
-                                        nulla ab officiis velit?
-                                    </td>
-                                    <td className=" ">Mereka</td>
-                                    <td>
-                                        <div className="flex justify-center items-center h-full flex-col gap-y-2">
-                                            <Link className="bg-blue-400 w-20 py-0.5 rounded">
-                                                Lihat
-                                            </Link>
-                                            <Link className="bg-yellow-400 w-20 py-0.5 rounded">
-                                                Edit
-                                            </Link>
-                                            <button className="bg-red-400 w-20 py-0.5 rounded">
-                                                Hapus
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr> */}
-                                {/* {artikel.length > 0 ? (
-                                    <tr className="border-b py-5">
-                                        <td className="">{artikel.id}</td>
-                                        <td className="">{artikel.judul}</td>
-                                        <td className="">{artikel.tanggal}</td>
-                                        <td className="text-wrap">
-                                            {artikel.isi}
-                                        </td>
-                                        <td className="">{artikel.gambar}</td>
-                                        <td>
-                                            <div className="flex justify-center items-center h-full flex-col gap-y-2">
-                                                <Link className="bg-blue-400 w-20 py-0.5 rounded">
-                                                    Lihat
-                                                </Link>
-                                                <Link className="bg-yellow-400 w-20 py-0.5 rounded">
-                                                    Edit
-                                                </Link>
-                                                <button className="bg-red-400 w-20 py-0.5 rounded">
-                                                    Hapus
-                                                </button>
-                                            </div>
-                                        </td>
+                        {artikel.length > 0 ? (
+                            <table className="table text-black min-w-full text-center">
+                                <thead className=" border-b bg-orange-200">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Judul</th>
+                                        <th>Tanggal</th>
+                                        <th className="w-1/3">Isi Kegiatan</th>
+                                        <th>Gambar</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                ) : (
-                                    <div>tidak ada</div>
-                                )} */}
-
-                                {artikel.map((artikel, index) => (
-                                    <tr key={index} className="border-b py-5">
-                                        <td className="">{artikel.id}</td>
-                                        <td className="">{artikel.judul}</td>
-                                        <td className="">{artikel.tanggal}</td>
-                                        <td className="text-wrap">
-                                            {artikel.isi}
-                                        </td>
-                                        <td className="">
-                                            <img
-                                                src={`storage/${artikel.gambar}`}
-                                                alt=""
-                                                className="w- h-[5em] object-cover"
-                                            />
-                                        </td>
-                                        <td>
-                                            <div className="flex justify-center items-center h-full flex-col gap-y-2">
-                                                <Link className="bg-blue-400 w-20 py-0.5 rounded">
-                                                    Lihat
-                                                </Link>
-                                                <Link
-                                                    href={`/manajemenartikel/${artikel.id}/edit`}
-                                                    className="bg-yellow-400 w-20 py-0.5 rounded"
-                                                >
-                                                    Edit
-                                                </Link>
-                                                <button className="bg-red-400 w-20 py-0.5 rounded">
-                                                    Hapus
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {artikel.map((artikel, index) => (
+                                        <tr key={index} className="border-b py-5">
+                                            <td>{artikel.id}</td>
+                                            <td>{artikel.judul}</td>
+                                            <td>{artikel.tanggal}</td>
+                                            <td className="text-wrap">{artikel.isi}</td>
+                                            <td>
+                                                <img
+                                                    src={`storage/${artikel.gambar}`}
+                                                    alt=""
+                                                    className="w- h-[5em] object-cover"
+                                                />
+                                            </td>
+                                            <td>
+                                                <div className="flex justify-center items-center h-full flex-col gap-y-2">
+                                                    <Link
+                                                        href={`/manajemenartikel/${artikel.id}`}
+                                                        className="bg-blue-400 w-20 py-0.5 rounded"
+                                                    >
+                                                        Lihat
+                                                    </Link>
+                                                    <Link
+                                                        href={`/manajemenartikel/${artikel.id}/edit`}
+                                                        className="bg-yellow-400 w-20 py-0.5 rounded"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        className="bg-red-400 w-20 py-0.5 rounded"
+                                                        onClick={() => handleDelete(artikel.id)}
+                                                    >
+                                                        Hapus
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p className="text-center py-5">Tidak ada data</p>
+                        )}
                     </div>
                 </div>
             </div>
