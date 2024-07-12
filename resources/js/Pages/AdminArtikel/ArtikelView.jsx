@@ -8,7 +8,7 @@ export default function ArtikelView({auth, artikel}) {
         <AuthenticatedLayout
         user={auth.user}
         header={
-            <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 className="font-semibold text-xl leading-tight">
                 Tampilan Artikel
             </h2>
         }>

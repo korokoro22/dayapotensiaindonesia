@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TampilanArtikelController;
+use App\Http\Controllers\TampilanKegiatanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,16 +22,53 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Homepage');
 });
 
+//layanan
+Route::get('/layanan-content', function () {
+    return Inertia::render("LayananContent");
+});
+Route::get('/industri', function () {
+    return Inertia::render("Layanan/Industri");
+});
+Route::get('/klinis', function () {
+    return Inertia::render("Layanan/Klinis");
+});
+Route::get('/forensik', function () {
+    return Inertia::render("Layanan/Forensik");
+});
+Route::get('/pendidikan', function () {
+    return Inertia::render("Layanan/Pendidikan");
+});
+Route::get('/sosial', function () {
+    return Inertia::render("Layanan/Sosial");
+});
+Route::get('/lainnya', function () {
+    return Inertia::render("Layanan/Lainnya");
+});
+
+Route::get('/layanan', function() {
+    return Inertia::render('LayananKami');
+});
+
+//kegiatan
+Route::resource('/kegiatan', TampilanKegiatanController::class);
+
+//Artikel
+Route::resource('/artikel', TampilanArtikelController::class);
+
+
+
+//Admin
 Route::get('/login', function () {
     return Inertia::render('Login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::get('/manajemenkegiatan', function () {
     return Inertia::render('AdminKegiatan/KegiatanDashboard');
@@ -37,6 +77,8 @@ Route::get('/manajemenkegiatan', function () {
 // Route::get('/manajemenartikel', function () {
 //     return Inertia::render('AdminArtikel/ArtikelDashboard');
 // })->middleware(['auth', 'verified'])->name('manajemenartikel');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/manajemenartikel', [ArtikelController::class, 'index'])->middleware(['auth', 'verified'])->name('manajemenartikel');
 Route::get('/manajemenartikel/create', [ArtikelController::class, 'create'])->middleware(['auth', 'verified']);

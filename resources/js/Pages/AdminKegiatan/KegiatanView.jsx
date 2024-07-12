@@ -8,7 +8,7 @@ export default function KegiatanView({auth, kegiatan}) {
         <AuthenticatedLayout
         user={auth.user}
         header={
-            <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 className="font-semibold text-xl leading-tight">
                 Tampilan Kegiatan
             </h2>
         }>

@@ -13,7 +13,7 @@ export default function KegiatanDashboard({ auth, kegiatan }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl leading-tight">
                     Dashboard Kegiatan
                 </h2>
             }
@@ -23,7 +23,7 @@ export default function KegiatanDashboard({ auth, kegiatan }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="mb-5">
                         <Link
-                            className="bg-green-200 px-4 py-2 rounded"
+                            className="bg-green-500 hover:bg-green-700 text-white hover:text-gray-100 px-4 py-2 rounded"
                             href="/manajemenkegiatan/create"
                         >
                             Tambah Data
@@ -33,9 +33,9 @@ export default function KegiatanDashboard({ auth, kegiatan }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded">
                         {kegiatan.length > 0 ? (
                             <table className="table text-black min-w-full text-center">
-                                <thead className=" border-b bg-orange-200">
-                                    <tr>
-                                        <th>No</th>
+                                <thead className=" border-b bg-[#f0cc40] text-gray-800">
+                                    <tr className="">
+                                        <th className="py-2">No</th>
                                         <th>Judul</th>
                                         <th>Tanggal</th>
                                         <th className="w-1/3">Isi Kegiatan</th>
@@ -45,34 +45,34 @@ export default function KegiatanDashboard({ auth, kegiatan }) {
                                 </thead>
                                 <tbody>
                                     {kegiatan.map((kegiatan, index) => (
-                                        <tr key={index} className="border-b py-5">
-                                            <td>{kegiatan.id}</td>
+                                        <tr key={kegiatan.id} className="border-b">
+                                            <td className="">{index + 1}</td>
                                             <td>{kegiatan.judul}</td>
                                             <td>{kegiatan.tanggal}</td>
-                                            <td className="text-wrap">{kegiatan.isi}</td>
+                                            <td className="text-wrap py-3">{kegiatan.isi}</td>
                                             <td>
                                                 <img
                                                     src={`storage/${kegiatan.gambar}`}
                                                     alt=""
-                                                    className="w- h-[5em] object-cover"
+                                                    className="w- h-[5em] object-cover mx-auto"
                                                 />
                                             </td>
                                             <td>
-                                                <div className="flex justify-center items-center h-full flex-col gap-y-2">
+                                                <div className="flex justify-center items-center h-full flex-col gap-y-2 text-white">
                                                     <Link
                                                         href={`/manajemenkegiatan/${kegiatan.id}`}
-                                                        className="bg-blue-400 w-20 py-0.5 rounded"
+                                                        className="bg-blue-600 hover:bg-blue-800 w-20 py-0.5 rounded"
                                                     >
                                                         Lihat
                                                     </Link>
                                                     <Link
                                                         href={`/manajemenkegiatan/${kegiatan.id}/edit`}
-                                                        className="bg-yellow-400 w-20 py-0.5 rounded"
+                                                        className="bg-yellow-400 hover:bg-yellow-600 w-20 py-0.5 rounded"
                                                     >
                                                         Edit
                                                     </Link>
                                                     <button
-                                                        className="bg-red-400 w-20 py-0.5 rounded"
+                                                        className="bg-red-600 hover:bg-red-800 w-20 py-0.5 rounded"
                                                         onClick={() => handleDelete(kegiatan.id)}
                                                     >
                                                         Hapus
