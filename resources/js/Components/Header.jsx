@@ -149,7 +149,7 @@ const Header = () => {
                 <li>
                     <Link
                         className="font-inter font-medium xl:text-xl lg:text-lg pr-10 hover:text-[#F3D457] "
-                        to="/kontak"
+                        href={route('hubungikami.create')}
                     >
                         Kontak Kami
                     </Link>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TampilanArtikelController;
 use App\Http\Controllers\TampilanKegiatanController;
@@ -58,6 +59,9 @@ Route::resource('/kegiatan', TampilanKegiatanController::class);
 //Artikel
 Route::resource('/artikel', TampilanArtikelController::class);
 
+//kontak
+Route::get('/hubungikami', [KontakController::class, 'create'])->name('hubungikami.create');
+Route::post('/hubungikami', [KontakController::class, 'store'])->name('hubungikami.store');
 
 
 //Admin
