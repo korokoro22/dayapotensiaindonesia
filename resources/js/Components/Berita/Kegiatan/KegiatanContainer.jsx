@@ -11,7 +11,7 @@ const KegiatanContainer = ({ cobas, kegiatans }) => {
 
     useEffect(() => {
         setFilterData(
-            cobas.filter((item, index) => {
+            kegiatans.filter((item, index) => {
                 return (index >= page * n) & (index < (page + 1) * n);
             })
         );
@@ -20,23 +20,26 @@ const KegiatanContainer = ({ cobas, kegiatans }) => {
     return (
         <div className="bg-[#e9e9e9]">
             <div className="flex flex-wrap justify-center md:max-w-[45em] lg:max-w-[70em] m-auto py-5 gap-y-5 gap-6">
-                {kegiatans.map((kegiatanz, index) => (
-                    <Link href={`/kegiatan/${kegiatanz.id}`}>
+                {filterData?.map((Kegiatanz, index) => (
+                    <Link
+                        href={`/artikel/${Kegiatanz.id}`}
+                        className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white"
+                    >
                         <div
-                            className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white"
+                            className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white pb-5"
                             key={index}
                         >
                             <img
-                                src={`/storage/${kegiatanz.gambar}`}
+                                src={`/storage/${Kegiatanz.gambar}`}
                                 alt=""
-                                className="rounded-t-lg"
+                                className="rounded-t-lg w-full h-[12em] object-cover object-center"
                             />
-                            <p className=" pl-2 pt-2">{kegiatanz.tanggal}</p>
-                            <h1 className="mt-4 ml-2 font-bold text-lg">
-                                {kegiatanz.judul}
+                            <p className=" pl-2 pt-2">{Kegiatanz.tanggal}</p>
+                            <h1 className="mt-4 ml-2 font-bold text-lg h-[3em] line-clamp-2">
+                                {Kegiatanz.judul}
                             </h1>
-                            <p className=" w-[95%] m-auto mt-3 pb-5 text-justify">
-                                {kegiatanz.deskripsi}
+                            <p className=" w-[95%] m-auto mt-3 pb-5 text-justify line-clamp-4">
+                                {Kegiatanz.isi}
                             </p>
                         </div>
                     </Link>
@@ -50,7 +53,7 @@ const KegiatanContainer = ({ cobas, kegiatans }) => {
                     pageClassName={"join-item btn"}
                     onPageChange={(event) => setPage(event.selected)}
                     breakLabel="..."
-                    pageCount={Math.ceil(cobas.length / n)}
+                    pageCount={Math.ceil(kegiatans.length / n)}
                     previousLabel={<button className="join-item btn">«</button>}
                     nextLabel={<button className="join-item btn">»</button>}
                 />
