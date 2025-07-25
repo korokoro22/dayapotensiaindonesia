@@ -8,6 +8,7 @@ const ArtikelContainer = ({ cobas, artikels }) => {
     const [filterData, setFilterData] = useState();
     const n = 6;
 
+    console.log(artikels)
     useEffect(() => {
         setFilterData(
             cobas.filter((item, index) => {
@@ -15,8 +16,6 @@ const ArtikelContainer = ({ cobas, artikels }) => {
             })
         );
     }, [page]);
-
-    console.log(filterData);
 
     return (
         <div className="bg-[#e9e9e9]">
@@ -37,20 +36,20 @@ const ArtikelContainer = ({ cobas, artikels }) => {
                 {artikels.map((artikelz, index) => (
                     <Link href={`/artikel/${artikelz.id}` } className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white" >
                         <div
-                            className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white"
+                            className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white pb-5"
                             key={index}
                         >
                             <img
                                 src={`/storage/${artikelz.gambar}`}
                                 alt=""
-                                className="rounded-t-lg"
+                                className="rounded-t-lg w-full h-[12em] object-cover object-center"
                             />
                             <p className=" pl-2 pt-2">{artikelz.tanggal}</p>
-                            <h1 className="mt-4 ml-2 font-bold text-lg">
+                            <h1 className="mt-4 ml-2 font-bold text-lg h-[3em] line-clamp-2">
                                 {artikelz.judul}
                             </h1>
-                            <p className=" w-[95%] m-auto mt-3 pb-5 text-justify">
-                                {artikelz.deskripsi}
+                            <p className=" w-[95%] m-auto mt-3 pb-5 text-justify line-clamp-4">
+                                {artikelz.isi}
                             </p>
                         </div>
                     </Link>

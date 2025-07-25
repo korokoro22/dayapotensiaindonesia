@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import DpiLogo from "../assets/logo/dpilogo.png";
-import Avatar from "../assets/logo/avatar.png";
 import { Link, Head } from "@inertiajs/react";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
-    const [login, setLogin] = useState(false);
     const [heading, setHeading] = useState("");
 
     const links = [
@@ -34,67 +32,7 @@ const Header = () => {
             </div>
 
             <div className="flex items-center">
-                <div className="lg:hidden">
-                    {login ? (
-                        <div className="flex items-center pr-2">
-                            <div className="avatar">
-                                <div className="w-12 rounded-full">
-                                    <img src={Avatar} />
-                                </div>
-                            </div>
-                            <div className="dropdown dropdown-end">
-                                <div
-                                    tabIndex={0}
-                                    role="button"
-                                    className=" m-1"
-                                >
-                                    <ion-icon
-                                        name="chevron-down-outline"
-                                        size="large"
-                                        style={{
-                                            color: "white",
-                                        }}
-                                    ></ion-icon>
-                                </div>
-                                <ul
-                                    tabIndex={0}
-                                    className="dropdown-content z-[1] menu p-2 mt-2 shadow bg-base-100 rounded-box w-52"
-                                >
-                                    <li>
-                                        <a className="text-black text-md font-medium">
-                                            {" "}
-                                            Profil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-black text-md font-medium">
-                                            Jadwal Konsultasi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="text-black text-md font-medium"
-                                            onClick={() => {
-                                                setLogin(false);
-                                            }}
-                                        >
-                                            keluar
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    ) : (
-                        <button
-                            className=" w-full bg-[#020202] px-3 inline-block lg:cursor-pointer font-bold text-white text-left"
-                            to="/"
-                            onClick={() => setLogin(true)}
-                        >
-                            <span className="hover:bg-[#f3d457] hover:text-black bg-white text-black px-4 py-[0.35rem] rounded-lg">
-                                Masuk
-                            </span>
-                        </button>
-                    )}
+                <div className="">
                 </div>
                 <div
                     className="lg:hidden text-3xl text-white pr-5"
@@ -104,6 +42,7 @@ const Header = () => {
                         name={`${open ? "close" : "menu"}`}
                         className=" w-24 "
                     ></ion-icon>
+                    
                 </div>
             </div>
 

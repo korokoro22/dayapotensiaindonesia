@@ -8,6 +8,7 @@ const ArtikelHeadline = ({ artikelTerbaru }) => {
     const firstArtikel = artikelTerbaru[0];
     const secondArtikel = artikelTerbaru[1];
     const thirdArtikel = artikelTerbaru[2];
+    console.log(firstArtikel.id)
 
     return (
         <div className="bg-[#E9E9E9] font-inter">
@@ -17,7 +18,7 @@ const ArtikelHeadline = ({ artikelTerbaru }) => {
                     style={{
                         backgroundImage: `url('/storage/${firstArtikel.gambar}')`,
                     }}
-                    href={`/viewartikel/${firstArtikel.id}`}
+                    href={`/artikel/${firstArtikel.id}`}
                 >
                     <div className=" text-white pl-2 mt-[9.5em] md:mt-[26em] ">
                         <p className=" text-lg"> {firstArtikel.tanggal} </p>
