@@ -8,7 +8,6 @@ const ArtikelHeadline = ({ artikelTerbaru }) => {
     const firstArtikel = artikelTerbaru[0];
     const secondArtikel = artikelTerbaru[1];
     const thirdArtikel = artikelTerbaru[2];
-    console.log(firstArtikel.id)
 
     return (
         <div className="bg-[#E9E9E9] font-inter">
@@ -29,7 +28,7 @@ const ArtikelHeadline = ({ artikelTerbaru }) => {
                 </Link>
 
                 <div className=" w-[20em] md:w-[25em] lg:w-[40em] h-[30em]">
-                    <Link href={`/viewartikel/${secondArtikel.id}`}>
+                    <Link href={`/artikel/${secondArtikel.id}`}>
                         <div
                             className=" bg-cover h-[14em] text-white bg-black rounded-xl"
                             style={{
@@ -47,7 +46,7 @@ const ArtikelHeadline = ({ artikelTerbaru }) => {
                             </div>
                         </div>
                     </Link>
-                    <Link href={`/viewartikel/${thirdArtikel.id}`}>
+                    <Link href={`/artikel/${thirdArtikel.id}`}>
                         <div
                             className=" bg-cover h-[14em] md:mt-[2em] mt-5 text-white bg-black rounded-xl"
                             style={{
