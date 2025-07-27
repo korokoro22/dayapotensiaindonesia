@@ -16,7 +16,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru }) => {
                     style={{
                         backgroundImage: `url('/storage/${firstKegiatan.gambar}')`,
                     }}
-                    href={`/viewkegiatan/${firstKegiatan.id}`}
+                    href={`/kegiatan/${firstKegiatan.id}`}
                 >
                     <div className=" text-white pl-2 mt-[9.5em] md:mt-[26em] ">
                         <p className=" text-lg"> {firstKegiatan.tanggal} </p>
@@ -27,7 +27,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru }) => {
                 </Link>
 
                 <div className=" w-[20em] md:w-[25em] lg:w-[40em] h-[30em]">
-                    <Link href={`/viewkegiatan/${secondKegiatan.id}`}>
+                    <Link href={`/kegiatan/${secondKegiatan.id}`}>
                         <div
                             className=" bg-cover h-[14em] text-white bg-black rounded-xl"
                             style={{
@@ -44,7 +44,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru }) => {
                             </div>
                         </div>
                     </Link>
-                    <Link href={`/viewkegiatan/${thirdKegiatan.id}`}>
+                    <Link href={`/kegiatan/${thirdKegiatan.id}`}>
                         <div
                             className=" bg-cover h-[14em] md:mt-[2em] mt-5 text-white bg-black rounded-xl"
                             style={{

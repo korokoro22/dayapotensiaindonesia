@@ -8,10 +8,9 @@ const ArtikelContainer = ({ cobas, artikels }) => {
     const [filterData, setFilterData] = useState();
     const n = 6;
 
-    console.log(artikels)
     useEffect(() => {
         setFilterData(
-            cobas.filter((item, index) => {
+            artikels.filter((item, index) => {
                 return (index >= page * n) & (index < (page + 1) * n);
             })
         );
@@ -20,21 +19,11 @@ const ArtikelContainer = ({ cobas, artikels }) => {
     return (
         <div className="bg-[#e9e9e9]">
             <div className="flex flex-wrap justify-center md:max-w-[45em] lg:max-w-[70em] m-auto py-5 gap-y-5 gap-6">
-                {/* {cobas
-                    .filter((cob) => cob.id <= 6)
-                    .map((coba) => (
-                        <ArtikelCard key={coba.id} {...coba} />
-                    ))} */}
-                {/* {filterData &&
-                    filterData.map((item) => (
-                        <ArtikelCard
-                            artikelz={artikels}
-                            key={item.id}
-                            {...item}
-                        />
-                    ))} */}
-                {artikels.map((artikelz, index) => (
-                    <Link href={`/artikel/${artikelz.id}` } className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white" >
+                {filterData?.map((artikelz, index) => (
+                    <Link
+                        href={`/artikel/${artikelz.id}`}
+                        className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white"
+                    >
                         <div
                             className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white pb-5"
                             key={index}
@@ -70,7 +59,7 @@ const ArtikelContainer = ({ cobas, artikels }) => {
                     pageClassName={"join-item btn"}
                     onPageChange={(event) => setPage(event.selected)}
                     breakLabel="..."
-                    pageCount={Math.ceil(cobas.length / n)}
+                    pageCount={Math.ceil(artikels.length / n)}
                     previousLabel={<button className="join-item btn">«</button>}
                     nextLabel={<button className="join-item btn">»</button>}
                 />
