@@ -1,9 +1,9 @@
-import React from 'react'
-import Pendidikan from "../../../assets/Layanan/cut/pendidikancut.jpg"
+import React from "react";
+import Pendidikan from "../../../assets/Layanan/pendidikan.jpg";
 
 const HeroPendidikan = () => {
-  return (
-    <div className=" relative font-inter">
+    return (
+        <div className=" relative font-inter">
             <div
                 className="w-full xl:h-[30em]  md:h-[25em] h-[15em] bg-cover static "
                 style={{
@@ -16,7 +16,7 @@ const HeroPendidikan = () => {
                 Psikologi Pendidikan
             </p>
         </div>
-  )
-}
+    );
+};
 
-export default HeroPendidikan
+export default HeroPendidikan;
