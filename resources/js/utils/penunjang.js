@@ -1,28 +1,28 @@
-const penunjangData = () =>([
+const penunjangData = () => [
     {
-        id:1,
-        title:"Tim",
-        body:"Tim yang kompeten, serta tim psikolog dengan surat ijin praktek psikologi yang aktif dan kompeten di bidangnya.",
-        image:"Tim"
+        id: 1,
+        title: "Moksa",
+        body: "Lembaga non profit yang dibentuk oleh Daya Potensia Indonesia yang berfokus pada krisis kemanusiaan dan pengabdian masyarakat.",
+        image: "Moksa",
     },
     {
-        id:2,
-        title:"Ruangan",
-        body:"Ruangan pemeriksaan maksimal 15 orang, Ruangan pemeriksaan individual, Ruangan konseling atau terapi psikologi",
-        image:"Ruangan"
+        id: 2,
+        title: "Persiapan Karir",
+        body: "Kegiatan yang berfokus untuk meningkatkan kemampuan peserta dalam mengetahui dan memahami dirinya dalam rangka penentuan karir di masa depan.",
+        image: "Ruangan",
     },
     {
-        id:3,
-        title:"Alat Tes Psikologi",
-        body:"Alat Tes Kecerdasan, Alat Tes Minat Bakat, Alat Tes Kepribadian, Alat Tes Kondisi Psikologi, Alat Tes Forensi",
-        image:"Alat"
+        id: 3,
+        title: "Penanganan Psikologis Pasca Situasi Krisis",
+        body: "Sejak 2018, tim Daya Potensia Indonesia telah melakukan penanganan psikologis pasca situasi krisis, seperti bencana alam dan kejadian fatality. Penanganan yang dilakukan adalah asesmen, psikoedukasi, konseling, dan membentuk kelompok dukungan.",
+        image: "Alat",
     },
     {
-        id:4,
-        title:"Alat-Alat Penunjang Pelatihan",
-        body:"Alat penunjang pelatihan psikologi termasuk psikotes, nventori kepribadian (seperti MBTI), dan papan diskusi.",
-        image:"Penunjang"
+        id: 4,
+        title: "Peningkatan Kompetensi Lulusan Psikologi",
+        body: "Kegiatan yang bertujuan untuk meningkatkan kemampuan dan kompetensi lulusan psikologi, yang dapat menunjang perkembangan karirnya ke depan.",
+        image: "Penunjang",
     },
-])
+];
 
 export { penunjangData };

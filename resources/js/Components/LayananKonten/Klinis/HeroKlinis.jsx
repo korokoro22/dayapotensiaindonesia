@@ -1,13 +1,13 @@
-import React from 'react'
-import Klinis from "../../../assets/Layanan/cut/kliniscut.jpg"
+import React from "react";
+import Kliniss from "../../../assets/Layanan/cut/Kliniss.png";
 
 const HeroKlinis = () => {
-  return (
-    <div className=" relative font-inter">
+    return (
+        <div className=" relative font-inter">
             <div
                 className="w-full xl:h-[30em]  md:h-[25em] h-[15em] bg-cover static "
                 style={{
-                    backgroundImage: `url('${Klinis}')`,
+                    backgroundImage: `url('${Kliniss}')`,
                 }}
             >
                 <div className="bg-black w-full h-full opacity-50"></div>
@@ -16,7 +16,7 @@ const HeroKlinis = () => {
                 Psikologi Klinis
             </p>
         </div>
-  )
-}
+    );
+};
 
-export default HeroKlinis
+export default HeroKlinis;
