@@ -9,9 +9,6 @@ import React from "react";
 
 const coba = cobaPaginator();
 
-// const nama = coba.filter( (cob) => cob.id < 5)
-// console.log(nama)
-
 const Artikel = ({ artikel, artikelsTerbaru }) => {
     return (
         <div>
