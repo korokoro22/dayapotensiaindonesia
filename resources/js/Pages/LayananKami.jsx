@@ -6,17 +6,14 @@ import LayananKamiContainer from "@/Components/LayananKami/Layanan/LayananKamiCo
 import { layananData } from "@/utils/layanan";
 
 const LayananKami = () => {
-
-    console.log(layananData())
-  
     return (
-      <div>
-          <Header />
-          <HeroLayanan />
-          <LayananKamiContainer layanans={layananData()} />
-          <Footer />
-      </div>
-    )
-  }
-  
-  export default LayananKami
+        <div>
+            <Header />
+            <HeroLayanan />
+            <LayananKamiContainer layanans={layananData()} />
+            <Footer />
+        </div>
+    );
+};
+
+export default LayananKami;
