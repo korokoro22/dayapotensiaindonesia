@@ -13,7 +13,7 @@ const KegiatanContainer = ({ cobas, kegiatans }) => {
         setFilterData(
             kegiatans.filter((item, index) => {
                 return (index >= page * n) & (index < (page + 1) * n);
-            })
+            }),
         );
     }, [page]);
 
@@ -22,7 +22,7 @@ const KegiatanContainer = ({ cobas, kegiatans }) => {
             <div className="flex flex-wrap justify-center md:max-w-[45em] lg:max-w-[70em] m-auto py-5 gap-y-5 gap-6">
                 {filterData?.map((Kegiatanz, index) => (
                     <Link
-                        href={`/artikel/${Kegiatanz.id}`}
+                        href={`/kegiatan/${Kegiatanz.id}`}
                         className="m-auto rounded-lg shadow-2xl w-[20em] font-inter text-black bg-white"
                     >
                         <div

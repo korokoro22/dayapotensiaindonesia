@@ -9,7 +9,6 @@ import { cobaPaginator } from "@/utils/paginator";
 
 const Kegiatan = ({ kegiatan, kegiatansTerbaru }) => {
     const coba = cobaPaginator();
-    // console.log(coba);
 
     return (
         <div>

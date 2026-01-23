@@ -5,7 +5,7 @@ const ContentKegiatan = ({ kegiatan }) => {
     return (
         <div className="xl:w-[70em] lg:w-[60em] md:w-[45em] w-[21em] m-auto flex flex-col py-10 gap-y-10 font-inter">
             <h1 className="text-center font-bold md:text-4xl text-2xl">
-                Psikologi Pasca Bencana
+                {kegiatan.judul}
             </h1>
             <div className="w-fit m-auto">
                 <img
