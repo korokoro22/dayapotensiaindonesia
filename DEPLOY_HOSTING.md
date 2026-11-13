@@ -34,7 +34,10 @@ Project ini dikonfigurasi untuk berjalan penuh di **Vercel Free (Hobby)** dengan
 ## Langkah 3 — Deploy ke Vercel *(Selesai)*
 
 * Website sudah live di **https://dayapotensiaindonesia.vercel.app** via Vercel CLI (`vercel link` + `vercel env add` + `vercel deploy --prod`).
-* Untuk deploy ulang setelah ada update kode di laptop: jalankan `vercel deploy --prod` *(atau pasang GitHub Actions + `VERCEL_TOKEN` jika ingin auto-deploy saat `git push`)*.
+* Workflow auto-deploy sudah disiapkan di [.github/workflows/deploy-vercel.yml](.github/workflows/deploy-vercel.yml). Supaya setiap `git push origin main` otomatis men-deploy ke Vercel, cukup pasang **1 secret** sekali saja:
+  1. Buat token di **https://vercel.com/account/tokens** (Scope: `Full Account` atau team Anda, Expiration: `No Expiration`).
+  2. Buka **https://github.com/korokoro22/dayapotensiaindonesia/settings/secrets/actions/new**, buat secret bernama **`VERCEL_TOKEN`** dan tempel token tersebut.
+  3. Setelah itu, setiap `git push origin main` otomatis memicu build & deploy ke **https://dayapotensiaindonesia.vercel.app**.
 
 ---
 

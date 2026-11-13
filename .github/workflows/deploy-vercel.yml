@@ -1,0 +1,29 @@
+name: Auto Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: team_UhY19pHyqDPfVRGG8S8LavTu
+  VERCEL_PROJECT_ID: prj_UB7LJsRHkjOCdkrSto8jcpuCwRji
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel Production
+        run: vercel deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}"
