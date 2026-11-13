@@ -12,7 +12,7 @@ Project ini dikonfigurasi untuk berjalan penuh di **Vercel Free (Hobby)** dengan
 
 - [x] **Langkah 1 — Database Neon PostgreSQL** *(Selesai: project Neon region Singapore `ap-southeast-1` / `neondb` sudah dibuat dan connection string sudah disalin)*
 - [x] **Langkah 2 — Cloudinary (Storage Gambar)** *(Selesai: API Keys sudah dibuat dan disimpan di `.env` lokal)*
-- [ ] **Langkah 3 — Deploy Project di Vercel (`https://vercel.com`)**
+- [x] **Langkah 3 — Deploy Project di Vercel (`https://dayapotensiaindonesia.vercel.app`)** *(Selesai: sudah online di Vercel Free / `adiln07`, database Neon termigrasi otomatis, dan aset React berjalan)*
 - [ ] **Langkah 4 — Sambungkan Custom Domain + SSL HTTPS**
 
 > **Catatan Keamanan:** Jangan pernah menempelkan atau menyimpan `DATABASE_URL` (berisi password), `CLOUDINARY_API_SECRET`, atau `ADMIN_PASSWORD` di file markdown/kode yang di-push ke GitHub. Masukkan nilai rahasia tersebut hanya di Dashboard Vercel (**Project Settings → Environment Variables**).
@@ -31,22 +31,10 @@ Project ini dikonfigurasi untuk berjalan penuh di **Vercel Free (Hobby)** dengan
 
 ---
 
-## Langkah 3 — Deploy Otomatis dari GitHub ke Vercel *(Tanpa Kartu Kredit)*
+## Langkah 3 — Deploy ke Vercel *(Selesai)*
 
-1. Buka **https://vercel.com** → login / daftar memakai akun **GitHub** Anda (pilih paket **Hobby / Free**).
-2. Klik **Add New... → Project**.
-3. Di daftar repository GitHub, pilih **`dayapotensiaindonesia`** lalu klik **Import**.
-4. Pastikan **Framework Preset** biarkan **`Other`** *(otomatis terbaca dari [vercel.json](vercel.json))*.
-5. Buka bagian **Environment Variables**, lalu masukkan **6 variabel** berikut *(cukup tempel blok `.env` atau isi satu per satu — sisanya sudah otomatis diatur di [vercel.json](vercel.json))*:
-   * `APP_KEY` → `base64:...` *(key Laravel produksi yang digenerate untuk web)*
-   * `DATABASE_URL` → connection string PostgreSQL dari **Neon** (Langkah 1)
-   * `CLOUDINARY_CLOUD_NAME` → dari **Cloudinary** (Langkah 2)
-   * `CLOUDINARY_API_KEY` → dari **Cloudinary** (Langkah 2)
-   * `CLOUDINARY_API_SECRET` → dari **Cloudinary** (Langkah 2)
-   * `ADMIN_PASSWORD` → password admin untuk login ke `/login` *(username default: `admin`)*
-6. Klik **Deploy** dan tunggu proses build selesai (~1–2 menit).
-   * Saat build, Vercel otomatis membangun frontend React (`npm run build`), menjalankan migrasi database Neon (`php artisan migrate --force`), dan membuat akun admin awal (`php artisan app:ensure-admin`).
-   * Setiap kali Anda mengedit kode dan menjalankan `git push origin main`, Vercel otomatis membangun ulang dan meng-update website secara langsung.
+* Website sudah live di **https://dayapotensiaindonesia.vercel.app** via Vercel CLI (`vercel link` + `vercel env add` + `vercel deploy --prod`).
+* Untuk deploy ulang setelah ada update kode di laptop: jalankan `vercel deploy --prod` *(atau pasang GitHub Actions + `VERCEL_TOKEN` jika ingin auto-deploy saat `git push`)*.
 
 ---
 

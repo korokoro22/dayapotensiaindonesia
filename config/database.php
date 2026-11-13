@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Str;
 
+$defaultConnection = env('DB_CONNECTION');
+if ($defaultConnection === null || $defaultConnection === '') {
+    $databaseUrl = (string) env('DATABASE_URL', '');
+    $defaultConnection = (str_starts_with($databaseUrl, 'postgres://') || str_starts_with($databaseUrl, 'postgresql://'))
+        ? 'pgsql'
+        : 'mysql';
+}
+
 return [
 
     /*
@@ -15,7 +23,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => $defaultConnection,
 
     /*
     |--------------------------------------------------------------------------

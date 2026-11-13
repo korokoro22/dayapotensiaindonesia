@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * Vercel build hook executed by vercel-php via composer.json ("scripts.vercel").
- * Compiles Vite assets if missing and applies pending DB migrations when DB env vars are set.
+ * Clears any stale dev package caches, ensures Vite assets exist, and runs migrations.
  */
 $run = static function (string $command): void {
     passthru($command, $exitCode);
@@ -12,6 +12,15 @@ $run = static function (string $command): void {
         exit($exitCode);
     }
 };
+
+foreach (['packages.php', 'services.php', 'config.php', 'routes-v7.php'] as $cacheFile) {
+    $path = __DIR__ . '/../bootstrap/cache/' . $cacheFile;
+    if (file_exists($path)) {
+        @unlink($path);
+    }
+}
+
+$run('php artisan package:discover --ansi');
 
 if (! file_exists(__DIR__ . '/../public/build/manifest.json')) {
     $run('npm ci && npm run build');

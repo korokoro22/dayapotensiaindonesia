@@ -10,11 +10,19 @@
   },
   "routes": [
     {
-      "src": "/(index\\.php|\\.htaccess)",
+      "src": "^/$",
       "dest": "/api/index.php"
     },
     {
-      "src": "/storage/(.*)",
+      "src": "^/.*\\.php$",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "^/\\.htaccess$",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "^/storage/(.*)$",
       "dest": "/api/index.php"
     },
     {
@@ -50,3 +58,4 @@
     "VIEW_COMPILED_PATH": "/tmp"
   }
 }
+
