@@ -211,4 +211,22 @@ class HostingSetupTest extends TestCase
         $options = $databaseConfig['connections']['pgsql']['options'] ?? [];
         $this->assertTrue($options[\PDO::ATTR_EMULATE_PREPARES] ?? false);
     }
+
+    public function test_vercel_configuration_files_are_valid(): void
+    {
+        $this->assertFileExists(base_path('api/index.php'));
+        $this->assertFileExists(base_path('scripts/vercel-build.php'));
+        $this->assertFileExists(base_path('.vercelignore'));
+
+        $vercelConfig = json_decode((string) file_get_contents(base_path('vercel.json')), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertSame('public', $vercelConfig['outputDirectory'] ?? null);
+        $this->assertStringStartsWith('vercel-php@', (string) ($vercelConfig['functions']['api/index.php']['runtime'] ?? ''));
+        $this->assertSame('/tmp', $vercelConfig['env']['VIEW_COMPILED_PATH'] ?? null);
+        $this->assertSame('cookie', $vercelConfig['env']['SESSION_DRIVER'] ?? null);
+        $this->assertSame('array', $vercelConfig['env']['CACHE_DRIVER'] ?? null);
+
+        $composer = json_decode((string) file_get_contents(base_path('composer.json')), true, 512, JSON_THROW_ON_ERROR);
+        $this->assertContains('@php scripts/vercel-build.php', $composer['scripts']['vercel'] ?? []);
+    }
 }

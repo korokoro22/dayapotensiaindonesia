@@ -1,85 +1,73 @@
-# Panduan Hosting Gratis (Render + Neon PostgreSQL + Cloudinary)
+# Panduan Hosting Gratis 100% Tanpa Kartu Kredit (Vercel + Neon PostgreSQL + Cloudinary)
 
-Project ini sudah dikonfigurasi untuk **Skema 1 (100% gratis, tanpa kartu kredit, dan auto-deploy setiap `git push` ke GitHub)**:
+Project ini dikonfigurasi untuk berjalan penuh di **Vercel Free (Hobby)** dengan **0 kartu kredit**, **auto-deploy setiap `git push` ke GitHub**, dan **Custom Domain + SSL HTTPS gratis**:
 
-* **Web Server (Laravel 10 + React + Inertia.js):** Render Free Web Service (Docker) via [render.yaml](render.yaml) & [Dockerfile](Dockerfile)
-* **Database:** Neon PostgreSQL Free Tier (0,5 GB, permanen, tanpa auto-pause 7 hari)
-* **Penyimpanan Gambar Artikel & Kegiatan:** Cloudinary Free Tier (25 credit/bulan) agar gambar tidak hilang saat container restart/redeploy (di laptop lokal tetap otomatis memakai `storage/app/public/` jika env Cloudinary dikosongkan)
+* **Web Server (Laravel 10 + React + Inertia.js):** Vercel Serverless (`vercel-php@0.7.4`) via [vercel.json](vercel.json) & [api/index.php](api/index.php)
+* **Database:** Neon PostgreSQL Free Tier (0,5 GB, permanen, sudah selesai dibuat pada Langkah 1)
+* **Penyimpanan Gambar Artikel & Kegiatan:** Cloudinary Free Tier (25 credit/bulan, sudah selesai dibuat pada Langkah 2)
 
 ---
 
 ## Status Progres Setup
 
 - [x] **Langkah 1 — Database Neon PostgreSQL** *(Selesai: project Neon region Singapore `ap-southeast-1` / `neondb` sudah dibuat dan connection string sudah disalin)*
-- [ ] **Langkah 2 — Cloudinary (Storage Gambar)**
-- [ ] **Langkah 3 — Deploy Blueprint di Render (`render.yaml`)**
+- [x] **Langkah 2 — Cloudinary (Storage Gambar)** *(Selesai: API Keys sudah dibuat dan disimpan di `.env` lokal)*
+- [ ] **Langkah 3 — Deploy Project di Vercel (`https://vercel.com`)**
 - [ ] **Langkah 4 — Sambungkan Custom Domain + SSL HTTPS**
 
-> **Catatan Keamanan:** Jangan pernah menempelkan atau menyimpan `DATABASE_URL` (berisi password), `CLOUDINARY_API_SECRET`, atau `ADMIN_PASSWORD` di file markdown/kode yang di-push ke GitHub. Cukup masukkan nilai rahasia tersebut langsung ke Environment Variables di Dashboard Render.
+> **Catatan Keamanan:** Jangan pernah menempelkan atau menyimpan `DATABASE_URL` (berisi password), `CLOUDINARY_API_SECRET`, atau `ADMIN_PASSWORD` di file markdown/kode yang di-push ke GitHub. Masukkan nilai rahasia tersebut hanya di Dashboard Vercel (**Project Settings → Environment Variables**).
 
 ---
 
 ## Langkah 1 — Buat Database Gratis di Neon *(Selesai)*
 
-1. ~~Daftar / login ke **https://neon.tech** (bisa login pakai akun GitHub, tanpa kartu kredit).~~
-2. ~~Buat project baru (pilih region **AWS Singapore (`ap-southeast-1`)** agar dekat dengan Indonesia & Render Singapore).~~
-3. ~~Di halaman **Dashboard → Connect**, salin **Connection string** PostgreSQL-nya.~~
-   *(Catatan: Baik URL pooled (`-pooler`) maupun direct dari Neon sama-sama didukung otomatis oleh konfigurasi [config/database.php](config/database.php) dan `channel_binding=require` aman dibiarkan apa adanya. Simpan URL ini untuk `DATABASE_URL` pada Langkah 3; jika Anda sempat menempelkan password ke chat/tempat umum, disarankan klik **Reset password** di dashboard Neon sebelum memakainya di Render.)*
+* ~~Project Neon PostgreSQL (region Singapore `ap-southeast-1`, database `neondb`) sudah aktif dan connection string sudah disalin.~~
 
 ---
 
-## Langkah 2 — Buat Penyimpanan Gambar Gratis di Cloudinary
+## Langkah 2 — Buat Penyimpanan Gambar Gratis di Cloudinary *(Selesai)*
 
-1. Daftar / login ke **https://cloudinary.com** (paket **Free**, tanpa kartu kredit).
-2. Buka **Dashboard / Settings → API Keys**, lalu catat 3 nilai ini:
-   * **Cloud Name** (`CLOUDINARY_CLOUD_NAME`)
-   * **API Key** (`CLOUDINARY_API_KEY`)
-   * **API Secret** (`CLOUDINARY_API_SECRET`)
+* ~~Cloud Name, API Key, dan API Secret sudah dibuat dan tersimpan aman di `.env` lokal laptop.~~
 
 ---
 
-## Langkah 3 — Deploy Otomatis dari GitHub ke Render
+## Langkah 3 — Deploy Otomatis dari GitHub ke Vercel *(Tanpa Kartu Kredit)*
 
-1. Pastikan seluruh perubahan sudah di-push ke repository GitHub Anda (`git push origin main`).
-2. Daftar / login ke **https://render.com** memakai akun **GitHub** (tanpa kartu kredit).
-3. Klik **New + → Blueprint** (disarankan karena langsung membaca [render.yaml](render.yaml)), pilih repository `dayapotensiaindonesia`.
-4. Render akan menampilkan daftar Environment Variables yang bertanda `sync: false`. Isi bagian berikut:
-   * `DATABASE_URL` → tempel connection string dari **Neon** (Langkah 1)
+1. Buka **https://vercel.com** → login / daftar memakai akun **GitHub** Anda (pilih paket **Hobby / Free**).
+2. Klik **Add New... → Project**.
+3. Di daftar repository GitHub, pilih **`dayapotensiaindonesia`** lalu klik **Import**.
+4. Pastikan **Framework Preset** biarkan **`Other`** *(otomatis terbaca dari [vercel.json](vercel.json))*.
+5. Buka bagian **Environment Variables**, lalu masukkan **6 variabel** berikut *(cukup tempel blok `.env` atau isi satu per satu — sisanya sudah otomatis diatur di [vercel.json](vercel.json))*:
+   * `APP_KEY` → `base64:...` *(key Laravel produksi yang digenerate untuk web)*
+   * `DATABASE_URL` → connection string PostgreSQL dari **Neon** (Langkah 1)
    * `CLOUDINARY_CLOUD_NAME` → dari **Cloudinary** (Langkah 2)
    * `CLOUDINARY_API_KEY` → dari **Cloudinary** (Langkah 2)
    * `CLOUDINARY_API_SECRET` → dari **Cloudinary** (Langkah 2)
-   * `ADMIN_PASSWORD` → isi password admin yang Anda inginkan untuk login `/login` (username default: `admin`)
-   * `APP_URL` → boleh dikosongkan dulu saat deploy pertama (otomatis memakai URL `https://...onrender.com`), atau langsung isi `https://domainanda.com` jika domain sudah siap
-5. Klik **Apply / Deploy Blueprint**.
-   * Render otomatis membangun Docker image (`npm run build` React + `composer install --no-dev`), menjalankan `php artisan migrate --force` ke Neon, dan membuat akun admin awal otomatis.
-   * Jika nanti Anda mengedit kode di laptop lalu menjalankan `git push origin main`, Render otomatis membangun ulang dan meng-update website tanpa upload manual.
+   * `ADMIN_PASSWORD` → password admin untuk login ke `/login` *(username default: `admin`)*
+6. Klik **Deploy** dan tunggu proses build selesai (~1–2 menit).
+   * Saat build, Vercel otomatis membangun frontend React (`npm run build`), menjalankan migrasi database Neon (`php artisan migrate --force`), dan membuat akun admin awal (`php artisan app:ensure-admin`).
+   * Setiap kali Anda mengedit kode dan menjalankan `git push origin main`, Vercel otomatis membangun ulang dan meng-update website secara langsung.
 
 ---
 
 ## Langkah 4 — Menghubungkan ke Domain Sendiri + SSL Gratis
 
-Setelah website sudah bisa dibuka di URL bawaan Render (misalnya `https://dayapotensia-web.onrender.com`):
+Setelah website bisa dibuka di URL bawaan Vercel (`https://...vercel.app`):
 
-1. Buka service `dayapotensia-web` di Dashboard Render → tab **Settings → Custom Domains**.
-2. Klik **Add Custom Domain**, masukkan domain Anda (misalnya `dayapotensiaindonesia.com` atau `www.dayapotensiaindonesia.com`).
-3. Render akan menampilkan DNS record yang harus dipasang di panel domain Anda (Niagahoster / Rumahweb / Cloudflare / Namecheap / Domainesia):
-   * **Untuk subdomain `www` (contoh `www.domainanda.com`):**
-     * Type: `CNAME`
-     * Name / Host: `www`
-     * Target / Value: `<nama-service>.onrender.com` (sesuai yang tampil di dashboard Render)
-   * **Untuk root domain tanpa `www` (contoh `domainanda.com`):**
-     * Jika DNS mendukung `ALIAS` / `ANAME` / CNAME Flattening (seperti Cloudflare): arahkan `@` ke `<nama-service>.onrender.com`.
-     * Jika tidak mendukung: tambahkan `A` record untuk `@` ke **alamat IPv4** yang diberikan Render di dashboard, dan **hapus record `AAAA` (IPv6)** jika ada agar verifikasi SSL tidak bentrok.
-4. Tunggu propagasi DNS (biasanya 5–30 menit), lalu klik **Verify** di Render. Render otomatis menerbitkan **sertifikat SSL HTTPS gratis** (Let's Encrypt / Google Trust Services).
-5. Buka tab **Environment** di Render, isi/perbarui:
-   * `APP_URL` = `https://domainanda.com` *(sesuaikan dengan domain aktif Anda)*
-   Lalu klik **Save, rebuild, and deploy** (atau cukup **Manual Deploy**).
+1. Buka project Anda di Dashboard Vercel → **Settings → Domains**.
+2. Ketik nama domain Anda (misalnya `dayapotensiaindonesia.com` atau `www.dayapotensiaindonesia.com`) lalu klik **Add**.
+3. Pasang DNS record persis seperti yang ditampilkan Vercel di panel domain Anda (Niagahoster / Rumahweb / Cloudflare / Domainesia):
+   * **Apex / root domain (`domainanda.com`):** Type `A`, Name `@`, Value IP yang ditampilkan Vercel (umumnya `76.76.21.21` atau sesuai instruksi terbaru di layar Vercel).
+   * **Subdomain `www` (`www.domainanda.com`):** Type `CNAME`, Name `www`, Target `cname.vercel-dns.com` *(atau sesuai yang tampil di dashboard Vercel)*.
+4. Tunggu beberapa menit hingga status domain berubah menjadi **Valid Configuration** (Vercel otomatis menerbitkan **sertifikat SSL HTTPS gratis**).
+5. Buka **Settings → Environment Variables** di Vercel, tambahkan:
+   * `APP_URL` = `https://domainanda.com`
+   Lalu lakukan **Redeploy** dari tab **Deployments** agar URL aplikasi mengikuti domain resmi Anda.
 
 ---
 
 ## Catatan Operasional
 
-* **Login Admin:** Buka `https://domainanda.com/login`, masuk menggunakan `ADMIN_NAME` (default `admin`) dan `ADMIN_PASSWORD` yang Anda isi di Render. Setelah login berhasil, Anda dapat mengganti username/email/password kapan saja lewat menu `/profile` — deploy berikutnya tidak akan menimpa password yang sudah diubah.
-* **Cold Start Free Tier:** Karena memakai paket gratis Render, service akan *sleep* setelah 15 menit tanpa pengunjung; pengunjung pertama setelah tidur perlu menunggu ~30–60 detik sampai container bangun.
-* **Health Check:** Endpoint `/health` sudah disiapkan untuk pengecekan otomatis Render.
-
+* **Login Admin:** Buka `https://domainanda.com/login`, masuk memakai username `admin` dan `ADMIN_PASSWORD` yang Anda pasang di Vercel. Setelah berhasil masuk, segera ganti password lewat menu `/profile` — deploy berikutnya tidak akan menimpa password yang sudah Anda ubah.
+* **Tidak ada sleep 30–60 detik:** Berbeda dengan layanan container gratis lain, website di Vercel selalu responsif tanpa menunggu container bangun.
+* **File Render opsional:** File [Dockerfile](Dockerfile) dan [render.yaml](render.yaml) tetap disimpan di repo sebagai cadangan jika suatu saat ingin memindahkan server ke VPS/Docker.
