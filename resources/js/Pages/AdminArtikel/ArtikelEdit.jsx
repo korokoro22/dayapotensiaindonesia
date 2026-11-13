@@ -136,6 +136,7 @@
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 
 export default function ArtikelEdit({ auth, artikel }) {
     const { data, setData, errors, post, processing } = useForm({
@@ -230,7 +231,7 @@ export default function ArtikelEdit({ auth, artikel }) {
                                 </label>
                                 {artikel.gambar && (
                                     <img
-                                        src={`/storage/${artikel.gambar}`}
+                                        src={resolveMediaUrl(artikel.gambar)}
                                         alt={artikel.judul}
                                         className="w-40 h-28 object-cover rounded border"
                                     />

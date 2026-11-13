@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 
 const ArtikelHeadline = ({ artikelTerbaru = [] }) => {
     const firstArtikel = artikelTerbaru[0];
@@ -17,7 +18,7 @@ const ArtikelHeadline = ({ artikelTerbaru = [] }) => {
                     href={`/artikel/${firstArtikel.id}`}
                     className="relative bg-cover bg-center min-h-[16em] md:min-h-[30em] text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                     style={{
-                        backgroundImage: `url('/storage/${firstArtikel.gambar}')`,
+                        backgroundImage: `url('${resolveMediaUrl(firstArtikel.gambar)}')`,
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
@@ -38,7 +39,7 @@ const ArtikelHeadline = ({ artikelTerbaru = [] }) => {
                                 href={`/artikel/${secondArtikel.id}`}
                                 className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                                 style={{
-                                    backgroundImage: `url('/storage/${secondArtikel.gambar}')`,
+                                    backgroundImage: `url('${resolveMediaUrl(secondArtikel.gambar)}')`,
                                 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
@@ -57,7 +58,7 @@ const ArtikelHeadline = ({ artikelTerbaru = [] }) => {
                                 href={`/artikel/${thirdArtikel.id}`}
                                 className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                                 style={{
-                                    backgroundImage: `url('/storage/${thirdArtikel.gambar}')`,
+                                    backgroundImage: `url('${resolveMediaUrl(thirdArtikel.gambar)}')`,
                                 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>

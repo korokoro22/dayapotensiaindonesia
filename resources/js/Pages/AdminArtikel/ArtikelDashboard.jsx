@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
+import { resolveMediaUrl } from "@/utils/media";
 
 export default function ArtikelDashboard({ auth, artikel }) {
     const handleDelete = (id) => {
@@ -56,7 +57,7 @@ export default function ArtikelDashboard({ auth, artikel }) {
                                             </td>
                                             <td>
                                                 <img
-                                                    src={`/storage/${item.gambar}`}
+                                                    src={resolveMediaUrl(item.gambar)}
                                                     alt={item.judul}
                                                     className="w-24 h-20 object-cover rounded mx-auto"
                                                 />

@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 
 export default function KegiatanEdit({ auth, kegiatan }) {
     const { data, setData, errors, post, processing } = useForm({
@@ -94,7 +95,7 @@ export default function KegiatanEdit({ auth, kegiatan }) {
                                 </label>
                                 {kegiatan.gambar && (
                                     <img
-                                        src={`/storage/${kegiatan.gambar}`}
+                                        src={resolveMediaUrl(kegiatan.gambar)}
                                         alt={kegiatan.judul}
                                         className="w-40 h-28 object-cover rounded border"
                                     />

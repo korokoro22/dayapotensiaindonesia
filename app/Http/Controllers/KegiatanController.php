@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Services\ImageStorageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class KegiatanController extends Controller
 {
+    public function __construct(private readonly ImageStorageService $imageStorage)
+    {
+    }
     public function index()
     {
         $kegiatan = Kegiatan::latest()->get();
@@ -36,7 +39,7 @@ class KegiatanController extends Controller
         ]);
 
         if ($request->file('gambar')) {
-            $validasiData['gambar'] = $request->file('gambar')->store('kegiatan', 'public');
+            $validasiData['gambar'] = $this->imageStorage->store($request->file('gambar'), 'kegiatan');
         }
 
         Kegiatan::create($validasiData);
@@ -64,14 +67,9 @@ class KegiatanController extends Controller
         $kegiatan->isi = $request->input('isi');
     
         if ($request->hasFile('gambar')) {
-            // Delete old image from storage
-            if ($kegiatan->gambar) {
-                Storage::disk('public')->delete($kegiatan->gambar);
-            }
-            $gambar = $request->file('gambar');
-            $nama = time() . '.' . $gambar->getClientOriginalExtension();
-            $filename = $gambar->storeAs('kegiatan', $nama, ['disk' => 'public']);
-            $kegiatan->gambar = $filename;
+            $newImage = $this->imageStorage->store($request->file('gambar'), 'kegiatan');
+            $this->imageStorage->delete($kegiatan->gambar);
+            $kegiatan->gambar = $newImage;
         }
     
         $kegiatan->save();
@@ -83,12 +81,8 @@ class KegiatanController extends Controller
     {
         $kegiatan = Kegiatan::findOrFail($id);
 
-        // Hapus gambar dari storage
-        if ($kegiatan->gambar) {
-            Storage::disk('public')->delete($kegiatan->gambar);
-        }
+        $this->imageStorage->delete($kegiatan->gambar);
 
-        // Hapus kegiatan
         $kegiatan->delete();
 
         return redirect()->route('manajemenkegiatan')->with('message', 'Kegiatan berhasil dihapus');

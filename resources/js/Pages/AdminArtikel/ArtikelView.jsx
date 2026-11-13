@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 {/* <img src={`http://127.0.0.1:8000/storage/${artikel.gambar}`} alt="" className="mx-auto w-3/4 drop-shadow-md" /> */}
 
 
@@ -23,7 +24,7 @@ export default function ArtikelView({auth, artikel}) {
                     </div>
                     <div className="flex flex-col gap-y-8 pb-10 border-b-2 border-black">
                         <h1 className="text-center font-black text-2xl md:text-3xl">{artikel.judul}</h1>
-                        <img src={`/storage/${artikel.gambar}`} alt={artikel.judul} className="mx-auto w-full max-w-2xl rounded-lg drop-shadow-md object-cover" />
+                        <img src={resolveMediaUrl(artikel.gambar)} alt={artikel.judul} className="mx-auto w-full max-w-2xl rounded-lg drop-shadow-md object-cover" />
                     </div>
                     <div className="pt-8">
                         <p className="whitespace-pre-line leading-relaxed text-justify">

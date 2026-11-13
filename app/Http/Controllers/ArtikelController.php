@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use App\Services\ImageStorageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ArtikelController extends Controller
 {
+    public function __construct(private readonly ImageStorageService $imageStorage)
+    {
+    }
     public function index()
     {
         $artikel = Artikel::latest()->get();
@@ -43,7 +46,7 @@ class ArtikelController extends Controller
         ]);
 
         if ($request->file('gambar')) {
-            $validasiData['gambar'] = $request->file('gambar')->store('artikel', 'public');
+            $validasiData['gambar'] = $this->imageStorage->store($request->file('gambar'), 'artikel');
         }
 
         Artikel::create($validasiData);
@@ -118,14 +121,9 @@ class ArtikelController extends Controller
         $artikel->isi = $request->input('isi');
 
         if ($request->hasFile('gambar')) {
-            // Delete old image from storage
-            if ($artikel->gambar) {
-                Storage::disk('public')->delete($artikel->gambar);
-            }
-            $gambar = $request->file('gambar');
-            $nama = time() . '.' . $gambar->getClientOriginalExtension();
-            $filename = $gambar->storeAs('artikel', $nama, ['disk' => 'public']);
-            $artikel->gambar = $filename;
+            $newImage = $this->imageStorage->store($request->file('gambar'), 'artikel');
+            $this->imageStorage->delete($artikel->gambar);
+            $artikel->gambar = $newImage;
         }
 
         $artikel->save();
@@ -137,12 +135,8 @@ class ArtikelController extends Controller
     {
         $artikel = Artikel::findOrFail($id);
 
-        // Hapus gambar dari storage
-        if ($artikel->gambar) {
-            Storage::disk('public')->delete($artikel->gambar);
-        }
+        $this->imageStorage->delete($artikel->gambar);
 
-        // Hapus artikel
         $artikel->delete();
 
         return redirect()->route('manajemenartikel')->with('message', 'Artikel berhasil dihapus');

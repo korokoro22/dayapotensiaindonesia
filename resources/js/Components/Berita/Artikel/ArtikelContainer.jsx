@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "@inertiajs/react";
 import ReactPaginate from "react-paginate";
+import { resolveMediaUrl } from "@/utils/media";
 
 const ArtikelContainer = ({ artikels = [] }) => {
     const [page, setPage] = useState(0);
@@ -24,7 +25,7 @@ const ArtikelContainer = ({ artikels = [] }) => {
                             className="rounded-lg shadow-xl w-full max-w-[22em] mx-auto font-inter text-black bg-white overflow-hidden hover:shadow-2xl transition-shadow flex flex-col"
                         >
                             <img
-                                src={`/storage/${artikelz.gambar}`}
+                                src={resolveMediaUrl(artikelz.gambar)}
                                 alt={artikelz.judul}
                                 className="w-full h-[12em] object-cover object-center"
                             />

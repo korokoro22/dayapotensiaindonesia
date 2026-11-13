@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 
 const KegiatanHeadline = ({ kegiatanTerbaru = [] }) => {
     const firstKegiatan = kegiatanTerbaru[0];
@@ -17,7 +18,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru = [] }) => {
                     href={`/kegiatan/${firstKegiatan.id}`}
                     className="relative bg-cover bg-center min-h-[16em] md:min-h-[30em] text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                     style={{
-                        backgroundImage: `url('/storage/${firstKegiatan.gambar}')`,
+                        backgroundImage: `url('${resolveMediaUrl(firstKegiatan.gambar)}')`,
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
@@ -38,7 +39,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru = [] }) => {
                                 href={`/kegiatan/${secondKegiatan.id}`}
                                 className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                                 style={{
-                                    backgroundImage: `url('/storage/${secondKegiatan.gambar}')`,
+                                    backgroundImage: `url('${resolveMediaUrl(secondKegiatan.gambar)}')`,
                                 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
@@ -57,7 +58,7 @@ const KegiatanHeadline = ({ kegiatanTerbaru = [] }) => {
                                 href={`/kegiatan/${thirdKegiatan.id}`}
                                 className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                                 style={{
-                                    backgroundImage: `url('/storage/${thirdKegiatan.gambar}')`,
+                                    backgroundImage: `url('${resolveMediaUrl(thirdKegiatan.gambar)}')`,
                                 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>

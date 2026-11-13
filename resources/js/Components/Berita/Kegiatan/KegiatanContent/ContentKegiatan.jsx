@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import { resolveMediaUrl } from "@/utils/media";
 
 const ContentKegiatan = ({ kegiatan }) => {
     return (
@@ -17,7 +18,7 @@ const ContentKegiatan = ({ kegiatan }) => {
             </h1>
             <div className="w-full">
                 <img
-                    src={`/storage/${kegiatan.gambar}`}
+                    src={resolveMediaUrl(kegiatan.gambar)}
                     alt={kegiatan.judul}
                     className="w-full max-h-[32em] object-cover rounded-xl shadow-md"
                 />

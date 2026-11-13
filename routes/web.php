@@ -2,14 +2,13 @@
 
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TampilanArtikelController;
 use App\Http\Controllers\TampilanKegiatanController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,36 +21,20 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Homepage');
-});
+Route::get('/health', HealthController::class);
+
+Route::inertia('/', 'Homepage');
 
 //layanan
-Route::get('/layanan-content', function () {
-    return Inertia::render("LayananContent");
-});
-Route::get('/industri', function () {
-    return Inertia::render("Layanan/Industri");
-});
-Route::get('/klinis', function () {
-    return Inertia::render("Layanan/Klinis");
-});
-Route::get('/forensik', function () {
-    return Inertia::render("Layanan/Forensik");
-});
-Route::get('/pendidikan', function () {
-    return Inertia::render("Layanan/Pendidikan");
-});
-Route::get('/sosial', function () {
-    return Inertia::render("Layanan/Sosial");
-});
-Route::get('/lainnya', function () {
-    return Inertia::render("Layanan/Lainnya");
-});
+Route::redirect('/layanan-content', '/layanan');
+Route::inertia('/industri', 'Layanan/Industri');
+Route::inertia('/klinis', 'Layanan/Klinis');
+Route::inertia('/forensik', 'Layanan/Forensik');
+Route::inertia('/pendidikan', 'Layanan/Pendidikan');
+Route::inertia('/sosial', 'Layanan/Sosial');
+Route::inertia('/lainnya', 'Layanan/Lainnya');
 
-Route::get('/layanan', function() {
-    return Inertia::render('LayananKami');
-});
+Route::inertia('/layanan', 'LayananKami');
 
 //kegiatan
 Route::resource('/kegiatan', TampilanKegiatanController::class)->only(['index', 'show']);
