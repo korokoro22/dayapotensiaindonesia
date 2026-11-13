@@ -1,46 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Avatar from "../../../assets/logo/avatar.png";
 
 const ModalProfile = ({ setIsmodal, filterData, setIdData }) => {
     const closeModal = () => {
         setIsmodal(false);
-        setIdData("");
+        setIdData(null);
     };
 
-    console.log(filterData);
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") closeModal();
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-300/75">
-            <div className="max-h-[90vh] w-1/2 overflow-y-auto rounded-xl bg-white p-2 text-sm">
-                <div className=" flex items-center justify-between rounded-xl p-4 shadow-sm">
-                    <h2 className="text-3xl font-bold text-[#333333]">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+            onClick={closeModal}
+        >
+            <div
+                className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white p-4 md:p-6 text-sm text-black shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="flex items-center justify-between border-b pb-4">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#333333]">
                         Profile Team
                     </h2>
                     <button
-                        onClick={() => closeModal(false)}
-                        className="text-3xl font-semibold text-gray-500 hover:text-gray-700"
+                        type="button"
+                        aria-label="Tutup modal"
+                        onClick={closeModal}
+                        className="text-2xl font-bold text-gray-500 hover:text-gray-800 px-2 py-1 rounded cursor-pointer"
                     >
-                        x
+                        ✕
                     </button>
                 </div>
 
                 {/* Modal Content */}
-                <div className="my-10">
-                    <div className="flex justify-center gap-2">
-                        <div className="w-3/5 flex flex-col gap-4">
+                <div className="my-6">
+                    <div className="flex flex-col-reverse md:flex-row justify-between items-center md:items-start gap-6">
+                        <div className="w-full md:w-3/5 flex flex-col gap-4">
                             <div>
-                                <h1 className="text-lg font-semibold">
+                                <h3 className="text-lg font-bold text-black">
                                     {filterData?.name}
-                                </h1>
-                                <h4 className=" text-sm bg-[#F3D457] w-fit rounded-lg px-2 text-white">
+                                </h3>
+                                <span className="inline-block mt-1 text-xs md:text-sm font-semibold bg-[#F3D457] rounded-lg px-3 py-1 text-black">
                                     {filterData?.title}
-                                </h4>
+                                </span>
                             </div>
-                            <p>{filterData?.desc}</p>
+                            <p className="text-justify leading-relaxed text-gray-700">
+                                {filterData?.desc}
+                            </p>
                         </div>
                         <img
-                            src={filterData?.image}
-                            alt=""
-                            className="w-[17em] h-[17em] rounded-lg object-cover"
+                            src={filterData?.image || Avatar}
+                            alt={filterData?.name}
+                            className="w-48 h-48 md:w-60 md:h-60 rounded-lg object-cover object-top shrink-0"
                         />
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import HeroKegiatan from "@/Components/Berita/Kegiatan/HeroKegiatan";
@@ -12,6 +13,7 @@ const KegiatanContent = ({ kegiatans }) => {
 
     return (
         <div className="bg-[#E9E9E9]">
+            <Head title={kegiatans?.judul || "Detail Kegiatan"} />
             <Header />
             <HeroKegiatan />
             <ContentKegiatan kegiatan={kegiatans} />

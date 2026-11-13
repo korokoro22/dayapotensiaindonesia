@@ -1,28 +1,37 @@
 import React from "react";
-import Sosial from "../../../../assets/Layanan/sosial.jpg";
+import { Link } from "@inertiajs/react";
+
 const ContentArtikel = ({ artikel }) => {
     return (
-        <div className="xl:w-[70em] lg:w-[60em] md:w-[45em] w-[21em] m-auto flex flex-col py-10 gap-y-10 font-inter">
-            <h1 className="text-center font-bold md:text-4xl text-2xl">
+        <article className="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col py-10 gap-y-8 font-inter text-black">
+            <div>
+                <Link
+                    href="/artikel"
+                    className="inline-block text-sm font-semibold text-gray-700 hover:text-black bg-white px-4 py-2 rounded-lg shadow-sm"
+                >
+                    ← Kembali ke Artikel
+                </Link>
+            </div>
+            <h1 className="text-center font-bold md:text-4xl text-2xl leading-snug">
                 {artikel.judul}
             </h1>
-            <div className="w-fit m-auto">
+            <div className="w-full">
                 <img
                     src={`/storage/${artikel.gambar}`}
-                    alt=""
-                    className="w-[60em] object-cover rounded-xl"
+                    alt={artikel.judul}
+                    className="w-full max-h-[32em] object-cover rounded-xl shadow-md"
                 />
-                <div className="flex font-semibold text-base mt-2 gap-2 ">
-                    <p className="border-r-[3px] border-black h-[1.4em] pr-2">
+                <div className="flex font-semibold text-sm md:text-base mt-3 gap-2 text-gray-700">
+                    <p className="border-r-2 border-black pr-3">
                         {artikel.tanggal}
                     </p>
                     <p>Admin</p>
                 </div>
             </div>
-            <p className="text-justify lg:w-[60em] md:w-[45em] m-auto">
+            <p className="text-justify leading-relaxed whitespace-pre-line text-gray-800">
                 {artikel.isi}
             </p>
-        </div>
+        </article>
     );
 };
 

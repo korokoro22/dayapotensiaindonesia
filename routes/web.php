@@ -54,10 +54,10 @@ Route::get('/layanan', function() {
 });
 
 //kegiatan
-Route::resource('/kegiatan', TampilanKegiatanController::class);
+Route::resource('/kegiatan', TampilanKegiatanController::class)->only(['index', 'show']);
 
 //Artikel
-Route::resource('/artikel', TampilanArtikelController::class);
+Route::resource('/artikel', TampilanArtikelController::class)->only(['index', 'show']);
 
 //kontak
 Route::get('/hubungikami', [KontakController::class, 'create'])->name('hubungikami.create');
@@ -65,23 +65,6 @@ Route::post('/hubungikami', [KontakController::class, 'store'])->name('hubungika
 
 
 //Admin
-Route::get('/login', function () {
-    return Inertia::render('Login');
-});
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-Route::get('/manajemenkegiatan', function () {
-    return Inertia::render('AdminKegiatan/KegiatanDashboard');
-})->middleware(['auth', 'verified'])->name('manajemenkegiatan');
-
-// Route::get('/manajemenartikel', function () {
-//     return Inertia::render('AdminArtikel/ArtikelDashboard');
-// })->middleware(['auth', 'verified'])->name('manajemenartikel');
-
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/manajemenartikel', [ArtikelController::class, 'index'])->middleware(['auth', 'verified'])->name('manajemenartikel');
@@ -97,7 +80,7 @@ Route::get('/manajemenkegiatan/create', [KegiatanController::class, 'create'])->
 Route::post('/manajemenkegiatan', [KegiatanController::class, 'store'])->middleware(['auth', 'verified']);
 Route::get('/manajemenkegiatan/{id}/edit', [KegiatanController::class, 'edit'])->middleware(['auth', 'verified']);
 Route::put('/manajemenkegiatan/{id}', [KegiatanController::class, 'update'])->middleware(['auth', 'verified']);
-Route::delete('/manajemenkegiatan/{id}', [KegiatanController::class, 'destroy'])->name('artikel.destroy')->middleware(['auth', 'verified']);
+Route::delete('/manajemenkegiatan/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy')->middleware(['auth', 'verified']);
 Route::get('/manajemenkegiatan/{id}', [KegiatanController::class, 'show'])->middleware(['auth', 'verified']);
 
 

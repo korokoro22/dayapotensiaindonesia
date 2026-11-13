@@ -44,7 +44,7 @@ const layananData = () => [
     {
         id: 6,
         title: "Layanan Lainnya ",
-        body: "Pelatihan & Seminar yang bertujuan untuk mengembangkan danmeningkatkan kompetensi individu",
+        body: "Pelatihan & Seminar yang bertujuan untuk mengembangkan dan meningkatkan kompetensi individu",
         image: Lainnya,
         link: "/lainnya",
     },

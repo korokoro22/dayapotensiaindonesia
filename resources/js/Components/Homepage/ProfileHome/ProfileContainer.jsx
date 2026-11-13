@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import ProfileCard from "./ProfileCard";
+import React, { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import ModalProfile from "./ModalProfile";
-// import ProfileTitle from "./ProfileTitle.jsx";
+import Avatar from "../../../assets/logo/avatar.png";
 
 const ProfileContainer = ({ profiles }) => {
-    let settings = {
+    const settings = {
         dots: false,
         infinite: false,
         speed: 500,
@@ -29,76 +28,67 @@ const ProfileContainer = ({ profiles }) => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    initialSlide: 1,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
+                    initialSlide: 0,
+                    dots: false,
                 },
             },
         ],
     };
 
     const [isModal, setIsModal] = useState(false);
-    const [idData, setIdData] = useState("");
-    const [filterData, setFilterData] = useState({});
+    const [idData, setIdData] = useState(null);
 
     const openModal = (id) => {
-        setIsModal(true);
         setIdData(id);
+        setIsModal(true);
     };
 
-    useEffect(() => {
-        const filteredData = idData
-            ? profiles?.find((profile) => profile?.id === idData)
-            : null;
-        setFilterData(filteredData);
-    }, [idData]);
+    const filterData = idData
+        ? profiles?.find((profile) => profile?.id === idData) || null
+        : null;
 
     return (
-        <div className="bg-[#F3D457]">
-            <h1 className="pt-10 text-center font-bold md:text-3xl text-xl  font-inter text-black">
-                Daya Potensia Indonesia Team{" "}
-            </h1>
-            <div className=" slider-container xl:w-[60em] lg:w-[55em] md:w-[36em] w-[17em] m-auto py-10">
+        <section className="bg-[#F3D457] px-6 py-12">
+            <h2 className="text-center font-bold md:text-3xl text-2xl font-inter text-black">
+                Daya Potensia Indonesia Team
+            </h2>
+            <div className="slider-container max-w-6xl mx-auto px-4 md:px-6 pt-10 pb-4">
                 <Slider {...settings}>
                     {profiles.map((profile) => (
-                        // <ProfileCard id={profile.id} {...profile} />
-                        <div key={profile?.id}>
-                            <div className="xl:w-[18em] w-[16em] h-[21em] xl:h-[23em] rounded-2xl m-auto bg-white shadow-xl font-inter">
-                                <figure className="pt-5">
+                        <div key={profile?.id} className="px-2">
+                            <button
+                                type="button"
+                                onClick={() => openModal(profile?.id)}
+                                className="w-full max-w-[18em] h-[22em] xl:h-[23em] rounded-2xl mx-auto bg-white shadow-xl font-inter flex flex-col items-center justify-between p-5 hover:scale-[1.02] transition-transform cursor-pointer text-center"
+                            >
+                                <figure className="pt-1">
                                     <img
-                                        src={profile?.image}
-                                        className="rounded-full xl:w-[13em] xl:h-[13em] m-auto object-cover object-center w-[11em] h-[11em]"
+                                        src={profile?.image || Avatar}
+                                        alt={profile?.name}
+                                        className="rounded-full xl:w-[12em] xl:h-[12em] w-[10.5em] h-[10.5em] mx-auto object-cover object-top"
                                     />
                                 </figure>
-                                <div className="card-body items-center text-center  text-black ">
-                                    <h2 className=" font-bold text-sm  xl:text-sm h-[2.5em]">
+                                <div className="flex flex-col items-center gap-2 text-black w-full">
+                                    <h3 className="font-bold text-sm line-clamp-2 min-h-[2.5em] flex items-center">
                                         {profile?.name}
-                                    </h2>
-                                    <p
-                                        onClick={() => openModal(profile?.id)}
-                                        className=" text-sm  font-semibold text-white bg-[#F3D457]  cursor-pointer mt-2 py-1 px-2 rounded-xl"
-                                    >
+                                    </h3>
+                                    <span className="text-xs font-semibold text-black bg-[#F3D457] py-1 px-3 rounded-xl">
                                         {profile?.job}
-                                    </p>
+                                    </span>
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     ))}
                 </Slider>
             </div>
-            {isModal && (
+            {isModal && filterData && (
                 <ModalProfile
                     setIsmodal={setIsModal}
                     filterData={filterData}
                     setIdData={setIdData}
                 />
             )}
-        </div>
+        </section>
     );
 };
 

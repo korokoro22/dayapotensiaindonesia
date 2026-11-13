@@ -1,4 +1,5 @@
 import React from "react";
+import { Head } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import HeroLayanan from "@/Components/LayananKami/HeroLayanan";
@@ -8,6 +9,7 @@ import { layananData } from "@/utils/layanan";
 const LayananKami = () => {
     return (
         <div>
+            <Head title="Layanan Kami" />
             <Header />
             <HeroLayanan />
             <LayananKamiContainer layanans={layananData()} />

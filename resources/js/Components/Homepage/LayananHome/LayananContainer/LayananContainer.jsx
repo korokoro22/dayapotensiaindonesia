@@ -1,21 +1,18 @@
 import React from "react";
 import LayananCard from "./LayananCard";
 
-const LayananContainer = ({layanans}) => {
+const LayananContainer = ({ layanans }) => {
     return (
-        <div>
-          <h1 className="font-inter text-center mt-10 text-3xl font-bold text-black ">Layanan Kami </h1>
-            <div className="flex flex-wrap md:max-w-[45em]  lg:bg-white lg:max-w-[70em] m-auto my-10 gap-y-5">
-              {
-                layanans.map((layanan)=>(
-                  <LayananCard 
-                  id={layanan.id}
-                  {...layanan}
-                  />
-                ))
-              }
+        <section className="px-4 py-12 bg-white">
+            <h2 className="font-inter text-center text-3xl font-bold text-black">
+                Layanan Kami
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-10">
+                {layanans.map((layanan) => (
+                    <LayananCard key={layanan.id} {...layanan} />
+                ))}
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -43,20 +43,15 @@ const KlienTerpercaya = () => {
     const logoKlien = logoData();
 
     return (
-        <div className="bg-[#E2E2E2] font-inter">
-            <h1 className="pt-10 text-center font-bold text-3xl">
+        <section className="bg-[#E2E2E2] font-inter py-12">
+            <h2 className="text-center font-bold text-3xl text-black">
                 Klien Terpercaya
-            </h1>
-            {/* <div className="py-10 grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 items-center m-auto justify-center lg:gap-20 md:gap-14 md:gap-y-4 gap-8 gap-y-2  xl:w-[75em] lg:w-[60em] md:w-[45em] sm:w-[35em] w-[20em] ">
-                {logoKlien?.map((logo) => (
-                    <img key={logo?.id} src={logo?.image} alt={logo?.alt} />
-                ))}
-            </div> */}
+            </h2>
 
-            <div className="w-full p-4 py-24">
-                <Slider {...settings} className="">
-                    {logoKlien.map((logo, index) => (
-                        <div key={index} className="">
+            <div className="max-w-7xl mx-auto px-4 py-12">
+                <Slider {...settings}>
+                    {logoKlien.map((logo) => (
+                        <div key={logo.id} className="px-2">
                             <img
                                 src={logo?.image}
                                 alt={logo?.alt}
@@ -66,7 +61,7 @@ const KlienTerpercaya = () => {
                     ))}
                 </Slider>
             </div>
-        </div>
+        </section>
     );
 };
 

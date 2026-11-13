@@ -11,7 +11,7 @@ class KegiatanController extends Controller
 {
     public function index()
     {
-        $kegiatan = Kegiatan::all();
+        $kegiatan = Kegiatan::latest()->get();
         return Inertia::render('AdminKegiatan/KegiatanDashboard', ['kegiatan' => $kegiatan]);
     }
 
@@ -29,10 +29,10 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $validasiData = $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'isi' => 'required',
-            'gambar'
+            'isi' => 'required|string',
+            'gambar' => 'required|image|max:5120',
         ]);
 
         if ($request->file('gambar')) {
@@ -51,10 +51,10 @@ class KegiatanController extends Controller
 
     public function update(Request $request, $id) {
         $request->validate([
-            'judul' => 'required',
-            'tanggal' => 'required',
-            'isi' => 'required',
-            'gambar' => 'nullable|image',
+            'judul' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'isi' => 'required|string',
+            'gambar' => 'nullable|image|max:5120',
         ]);
     
         $kegiatan = Kegiatan::findOrFail($id);
@@ -66,7 +66,7 @@ class KegiatanController extends Controller
         if ($request->hasFile('gambar')) {
             // Delete old image from storage
             if ($kegiatan->gambar) {
-                Storage::delete('public/' . $kegiatan->gambar);
+                Storage::disk('public')->delete($kegiatan->gambar);
             }
             $gambar = $request->file('gambar');
             $nama = time() . '.' . $gambar->getClientOriginalExtension();
@@ -85,7 +85,7 @@ class KegiatanController extends Controller
 
         // Hapus gambar dari storage
         if ($kegiatan->gambar) {
-            Storage::delete('public/' . $kegiatan->gambar);
+            Storage::disk('public')->delete($kegiatan->gambar);
         }
 
         // Hapus kegiatan

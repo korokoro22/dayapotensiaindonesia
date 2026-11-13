@@ -11,7 +11,7 @@ class ArtikelController extends Controller
 {
     public function index()
     {
-        $artikel = Artikel::all();
+        $artikel = Artikel::latest()->get();
 
         return Inertia::render(
             'AdminArtikel/ArtikelDashboard',
@@ -36,10 +36,10 @@ class ArtikelController extends Controller
     public function store(Request $request)
     {
         $validasiData = $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'isi' => 'required',
-            'gambar'
+            'isi' => 'required|string',
+            'gambar' => 'required|image|max:5120',
         ]);
 
         if ($request->file('gambar')) {
@@ -103,35 +103,35 @@ class ArtikelController extends Controller
     // }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'judul' => 'required',
-        'tanggal' => 'required',
-        'isi' => 'required',
-        'gambar' => 'nullable|image',
-    ]);
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'isi' => 'required|string',
+            'gambar' => 'nullable|image|max:5120',
+        ]);
 
-    $artikel = Artikel::findOrFail($id);
+        $artikel = Artikel::findOrFail($id);
 
-    $artikel->judul = $request->input('judul');
-    $artikel->tanggal = $request->input('tanggal');
-    $artikel->isi = $request->input('isi');
+        $artikel->judul = $request->input('judul');
+        $artikel->tanggal = $request->input('tanggal');
+        $artikel->isi = $request->input('isi');
 
-    if ($request->hasFile('gambar')) {
-        // Delete old image from storage
-        if ($artikel->gambar) {
-            Storage::delete('public/' . $artikel->gambar);
+        if ($request->hasFile('gambar')) {
+            // Delete old image from storage
+            if ($artikel->gambar) {
+                Storage::disk('public')->delete($artikel->gambar);
+            }
+            $gambar = $request->file('gambar');
+            $nama = time() . '.' . $gambar->getClientOriginalExtension();
+            $filename = $gambar->storeAs('artikel', $nama, ['disk' => 'public']);
+            $artikel->gambar = $filename;
         }
-        $gambar = $request->file('gambar');
-        $nama = time() . '.' . $gambar->getClientOriginalExtension();
-        $filename = $gambar->storeAs('artikel', $nama, ['disk' => 'public']);
-        $artikel->gambar = $filename;
-    }
 
-    $artikel->save();
-    
-    return to_route('manajemenartikel');
-}
+        $artikel->save();
+
+        return to_route('manajemenartikel');
+    }
 
     public function destroy($id)
     {
@@ -139,7 +139,7 @@ class ArtikelController extends Controller
 
         // Hapus gambar dari storage
         if ($artikel->gambar) {
-            Storage::delete('public/' . $artikel->gambar);
+            Storage::disk('public')->delete($artikel->gambar);
         }
 
         // Hapus artikel

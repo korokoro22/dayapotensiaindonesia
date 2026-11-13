@@ -8,8 +8,8 @@ use Inertia\Inertia;
 class TampilanArtikelController extends Controller
 {
     public function index() {
-        $artikel = Artikel::all();
-        $artikelsTerbaru = Artikel::latest()->take(3)->get();
+        $artikel = Artikel::latest()->get();
+        $artikelsTerbaru = $artikel->take(3)->values();
         return Inertia::render('Artikel', [
             'artikel' => $artikel,
             'artikelsTerbaru' => $artikelsTerbaru

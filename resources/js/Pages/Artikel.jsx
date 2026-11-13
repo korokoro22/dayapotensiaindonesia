@@ -6,6 +6,7 @@ import { cobaPaginator } from "@/utils/paginator";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import React from "react";
+import { Head } from "@inertiajs/react";
 
 const coba = cobaPaginator();
 
@@ -15,6 +16,7 @@ const coba = cobaPaginator();
 const Artikel = ({ artikel, artikelsTerbaru }) => {
     return (
         <div>
+            <Head title="Artikel" />
             <Header />
             <HeroArtikel />
             <ArtikelHeadline artikelTerbaru={artikelsTerbaru} />

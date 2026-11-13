@@ -135,41 +135,21 @@
 
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
-import { useEffect } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function ArtikelEdit({ auth, artikel }) {
-    const { data, setData, errors, post, progress } = useForm({
-        judul: artikel.judul,
-        tanggal: artikel.tanggal,
-        isi: artikel.isi,
+    const { data, setData, errors, post, processing } = useForm({
+        judul: artikel.judul || "",
+        tanggal: artikel.tanggal || "",
+        isi: artikel.isi || "",
         gambar: null,
+        _method: "PUT",
     });
-
-    useEffect(() => {
-        setData({
-            judul: artikel.judul,
-            tanggal: artikel.tanggal,
-            isi: artikel.isi,
-            gambar: null,
-        });
-    }, [artikel]);
 
     function handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("judul", data.judul);
-        formData.append("tanggal", data.tanggal);
-        formData.append("isi", data.isi);
-        if (data.gambar) {
-            formData.append("gambar", data.gambar);
-        }
-        formData.append("_method", "PUT");
-
-        router.post(`/manajemenartikel/${artikel.id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+        post(`/manajemenartikel/${artikel.id}`, {
+            forceFormData: true,
         });
     }
 
@@ -183,11 +163,11 @@ export default function ArtikelEdit({ auth, artikel }) {
             }
         >
             <Head title="Edit Artikel" />
-            <div className="py-12">
+            <div className="py-12 px-4 sm:px-0">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded px-8 py-5">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded px-6 sm:px-8 py-6 text-black">
                         <form
-                            className="flex flex-col gap-y-7"
+                            className="flex flex-col gap-y-6"
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
@@ -205,6 +185,9 @@ export default function ArtikelEdit({ auth, artikel }) {
                                         setData("judul", e.target.value)
                                     }
                                 />
+                                {errors.judul && (
+                                    <p className="text-red-600 text-sm">{errors.judul}</p>
+                                )}
                             </div>
                             <div className="flex flex-col gap-y-2">
                                 <label htmlFor="tanggal" className="font-semibold">
@@ -212,14 +195,16 @@ export default function ArtikelEdit({ auth, artikel }) {
                                 </label>
                                 <input
                                     type="date"
-                                    placeholder="Masukkan Tanggal Artikel"
                                     id="tanggal"
-                                    className="border-[#D1D1D1] rounded-md w-1/2"
+                                    className="border-[#D1D1D1] rounded-md w-full md:w-1/2"
                                     value={data.tanggal}
                                     onChange={(e) =>
                                         setData("tanggal", e.target.value)
                                     }
                                 />
+                                {errors.tanggal && (
+                                    <p className="text-red-600 text-sm">{errors.tanggal}</p>
+                                )}
                             </div>
                             <div className="flex flex-col gap-y-2">
                                 <label htmlFor="isi" className="font-semibold">
@@ -228,38 +213,54 @@ export default function ArtikelEdit({ auth, artikel }) {
                                 <textarea
                                     placeholder="Masukkan Isi Artikel"
                                     id="isi"
-                                    className="border-[#D1D1D1] rounded-md resize-none"
+                                    rows={6}
+                                    className="border-[#D1D1D1] rounded-md resize-y"
                                     value={data.isi}
                                     onChange={(e) =>
                                         setData("isi", e.target.value)
                                     }
                                 ></textarea>
+                                {errors.isi && (
+                                    <p className="text-red-600 text-sm">{errors.isi}</p>
+                                )}
                             </div>
                             <div className="flex flex-col gap-y-2">
                                 <label htmlFor="gambar" className="font-semibold">
-                                    Gambar
+                                    Gambar (opsional, kosongkan jika tidak diubah)
                                 </label>
+                                {artikel.gambar && (
+                                    <img
+                                        src={`/storage/${artikel.gambar}`}
+                                        alt={artikel.judul}
+                                        className="w-40 h-28 object-cover rounded border"
+                                    />
+                                )}
                                 <input
                                     type="file"
+                                    accept="image/*"
                                     id="gambar"
-                                    className="border-[#D1D1D1] rounded-md w-1/2"
+                                    className="border-[#D1D1D1] rounded-md w-full md:w-1/2 p-1.5"
                                     onChange={(e) =>
-                                        setData("gambar", e.target.files[0])
+                                        setData("gambar", e.target.files[0] || null)
                                     }
                                 />
+                                {errors.gambar && (
+                                    <p className="text-red-600 text-sm">{errors.gambar}</p>
+                                )}
                             </div>
-                            <div className="flex gap-x-4 mt-8">
+                            <div className="flex gap-x-4 mt-4">
                                 <Link
                                     href="/manajemenartikel"
-                                    className="bg-gray-200 px-3 py-1 rounded-md"
+                                    className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-md font-medium"
                                 >
                                     Kembali
                                 </Link>
                                 <button
-                                    className="bg-green-400 px-3 py-1 rounded-md"
+                                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md font-medium disabled:opacity-50"
                                     type="submit"
+                                    disabled={processing}
                                 >
-                                    Simpan
+                                    {processing ? "Menyimpan..." : "Simpan"}
                                 </button>
                             </div>
                         </form>

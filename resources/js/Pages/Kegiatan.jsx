@@ -5,6 +5,7 @@ import KegiatanLainnya from "@/Components/Berita/Kegiatan/KegiatanLainnya";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import React from "react";
+import { Head } from "@inertiajs/react";
 import { cobaPaginator } from "@/utils/paginator";
 
 const Kegiatan = ({ kegiatan, kegiatansTerbaru }) => {
@@ -13,6 +14,7 @@ const Kegiatan = ({ kegiatan, kegiatansTerbaru }) => {
 
     return (
         <div>
+            <Head title="Kegiatan" />
             <Header />
             <HeroKegiatan />
             <KegiatanHeadline kegiatanTerbaru={kegiatansTerbaru} />

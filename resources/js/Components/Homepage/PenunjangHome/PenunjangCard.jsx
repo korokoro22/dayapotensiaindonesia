@@ -1,20 +1,20 @@
 import React from "react";
 import Penunjang from "../../../assets/Penunjang/Penunjang.jpg";
-const PenunjangCard = ({ title, body, image }) => {
+const PenunjangCard = ({ title, body }) => {
     return (
-        <div className="font-inter bg-[#1A1A1A]  md:w-[35em] w-[20em]  md:h-[13em] h-[23em] m-auto text-white flex md:flex-row flex-col-reverse  rounded-xl md:items-center justify-end md:justify-">
-            <div className=" md:pl-7">
-                <h1 className="md:text-xl text-sm font-bold mb-2 text-center md:text-start pt-5 md:pt-0">
+        <div className="font-inter bg-[#1A1A1A] w-full min-h-[13rem] text-white flex md:flex-row flex-col-reverse rounded-xl overflow-hidden shadow-lg">
+            <div className="p-6 flex-1 flex flex-col justify-center">
+                <h3 className="md:text-xl text-base font-bold mb-2 text-center md:text-start">
                     {title}
-                </h1>
-                <p className="text-justify md:text-start text-sm w-[18em]  m-auto md:w-fit md:m-0 ">
+                </h3>
+                <p className="text-justify md:text-start text-sm text-gray-200 leading-relaxed">
                     {body}
                 </p>
             </div>
             <img
                 src={Penunjang}
-                alt=""
-                className="md:h-[13em] md:w-[10em] object-cover rounded-t-xl md:rounded-tl-none md:rounded-r-xl"
+                alt={title}
+                className="h-48 md:h-auto md:w-[11rem] w-full shrink-0 object-cover"
             />
         </div>
     );

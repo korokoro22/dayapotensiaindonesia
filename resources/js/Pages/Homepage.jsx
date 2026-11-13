@@ -10,10 +10,12 @@ import KlienTerpercaya from "@/Components/Homepage/KlienTerpercaya";
 import Footer from "@/Components/Footer";
 
 import React from "react";
+import { Head } from "@inertiajs/react";
 
 export default function Homepage() {
     return (
         <div>
+            <Head title="Beranda" />
             <Header />
             <CarouselHero />
             <LayananContainer layanans={layananData()} />

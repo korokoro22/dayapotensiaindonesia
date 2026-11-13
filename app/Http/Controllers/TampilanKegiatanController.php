@@ -8,8 +8,8 @@ use Inertia\Inertia;
 class TampilanKegiatanController extends Controller
 {
     public function index() {
-        $kegiatan = Kegiatan::all();
-        $kegiatansTerbaru = Kegiatan::latest()->take(3)->get();
+        $kegiatan = Kegiatan::latest()->get();
+        $kegiatansTerbaru = $kegiatan->take(3)->values();
         return Inertia::render('Kegiatan', [
             'kegiatan' => $kegiatan,
             'kegiatansTerbaru' => $kegiatansTerbaru

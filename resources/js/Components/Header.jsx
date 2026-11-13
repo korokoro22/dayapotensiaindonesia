@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DpiLogo from "../assets/logo/dpilogo.png";
-import { Link, Head } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
@@ -8,48 +8,38 @@ const Header = () => {
 
     const links = [
         {
+            id: 1,
             name: "Berita",
             submenu: true,
             sublinks: [
-                {
-                    id:1,
-                    sublink: [
-                        { id:1, name: "Kegiatan", link: "/" },
-                        { id:2, name: "Artikel", link: "/" },
-                    ],
-                },
+                { id: 1, name: "Kegiatan", link: "/kegiatan" },
+                { id: 2, name: "Artikel", link: "/artikel" },
             ],
         },
     ];
 
     return (
-        <div className="w-full h-24 bg-[#020202]  flex sticky z-50 items-center justify-between top-0">
-            <div className="text-white lg:ml-10 ml-3">
-                <img src={DpiLogo} alt="" className="md:h-12 h-10 " />
+        <header className="w-full h-24 bg-[#020202] flex sticky z-50 items-center justify-between top-0 px-4 lg:px-10">
+            <Link href="/" className="text-white flex flex-col items-start">
+                <img src={DpiLogo} alt="Daya Potensia Indonesia" className="md:h-12 h-10" />
                 <h1 className="font-inter font-semibold text-xs lg:text-lg">
                     Daya Potensia Indonesia
                 </h1>
-            </div>
+            </Link>
 
-            <div className="flex items-center">
-                <div className="">
-                </div>
-                <div
-                    className="lg:hidden text-3xl text-white pr-5"
-                    onClick={() => setOpen(!open)}
-                >
-                    <ion-icon
-                        name={`${open ? "close" : "menu"}`}
-                        className=" w-24 "
-                    ></ion-icon>
-                    
-                </div>
-            </div>
+            <button
+                type="button"
+                aria-label={open ? "Tutup menu" : "Buka menu"}
+                className="lg:hidden text-3xl text-white p-2 cursor-pointer"
+                onClick={() => setOpen(!open)}
+            >
+                <ion-icon name={open ? "close" : "menu"}></ion-icon>
+            </button>
 
-            <ul className="text-white lg:flex items-center hidden xl:pr-10 ">
+            <ul className="text-white lg:flex items-center hidden gap-8 xl:gap-12">
                 <li>
                     <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg lg:pr-10 xl:pr-14 hover:text-[#F3D457]"
+                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
                         href="/"
                     >
                         Beranda
@@ -57,10 +47,10 @@ const Header = () => {
                 </li>
                 <li>
                     <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg lg:pr-10 hover:text-[#F3D457] xl:pr-14 "
+                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
                         href="/layanan"
                     >
-                        <a>Layanan Kami</a>
+                        Layanan Kami
                     </Link>
                 </li>
                 <li>
@@ -68,16 +58,16 @@ const Header = () => {
                         <div
                             tabIndex={0}
                             role="button"
-                            className=" font-inter font-medium xl:text-xl lg:text-lg lg:pr-10 hover:text-[#F3D457] xl:pr-14"
+                            className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
                         >
                             Berita
                         </div>
                         <ul
                             tabIndex={0}
-                            className="dropdown-content z-[1] menu p-2 mt-4 shadow bg-base-100 rounded-box w-40 mr-10 text-black"
+                            className="dropdown-content z-[1] menu p-2 mt-4 shadow bg-base-100 rounded-box w-40 text-black"
                         >
                             <li>
-                                <Link href="/kegiatan">Kegiatan </Link>
+                                <Link href="/kegiatan">Kegiatan</Link>
                             </li>
                             <li>
                                 <Link href="/artikel">Artikel</Link>
@@ -87,153 +77,80 @@ const Header = () => {
                 </li>
                 <li>
                     <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg pr-10 hover:text-[#F3D457] "
-                        href={route('hubungikami.create')}
+                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
+                        href={route("hubungikami.create")}
                     >
                         Kontak Kami
                     </Link>
                 </li>
-                <li>
-                    {/* {login ? (
-                        <div className="flex items-center gap-1">
-                            <div className="avatar">
-                                <div className="w-14 rounded-full">
-                                    <img src={Avatar} />
-                                </div>
-                            </div>
-                            <div className="dropdown dropdown-end">
-                                <div
-                                    tabIndex={0}
-                                    role="button"
-                                    className=" m-1"
-                                >
-                                    <ion-icon
-                                        name="chevron-down-outline"
-                                        size="large"
-                                    ></ion-icon>
-                                </div>
-                                <ul
-                                    tabIndex={0}
-                                    className="dropdown-content z-[1] menu p-2 mt-2 shadow bg-base-100 rounded-box w-52"
-                                >
-                                    <li>
-                                        <a className="text-black text-md font-medium">
-                                            {" "}
-                                            Profil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="text-black text-md font-medium">
-                                            Jadwal Konsultasi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="text-black text-md font-medium"
-                                            onClick={() => {
-                                                setLogin(false);
-                                            }}
-                                        >
-                                            keluar
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    ) : (
-                        <button
-                            className="font-inter font-semibold xl:text-xl lg:text-lg mr-10 px-4 hover:bg-[#f3d457] hover:text-black py-[0.30rem] rounded-xl	 text-black bg-white"
-                            onClick={() => {
-                                setLogin(true);
-                            }}
-                        >
-                            Masuk
-                        </button>
-                    )} */}
-                    {/* <Link href="/login-dpi">
-                        <button className="font-inter font-semibold xl:text-xl lg:text-lg mr-10 px-4 hover:bg-[#f3d457] hover:text-black py-[0.30rem] rounded-xl	 text-black bg-white">
-                            Masuk
-                        </button>
-                    </Link> */}
-                </li>
             </ul>
 
-            {/* Mobile */}
+            {/* Mobile Drawer */}
             <ul
-                className={`
-        lg:hidden bg-[#020202] absolute w-full h-full pt-[10rem] py-24 z-[-1] duration-500 ${
-            open ? "left-0" : "left-[-100%]"
-        }
-      `}
+                className={`lg:hidden fixed top-24 w-full h-[calc(100vh-6rem)] bg-[#020202] overflow-y-auto px-6 py-6 z-40 transition-all duration-300 ${
+                    open ? "left-0" : "-left-full"
+                }`}
             >
                 <li>
                     <Link
-                        className="pr-10 bg-[#020202] hover:text-[#F3D457]  py-7 px-3 inline-block lg:cursor-pointer font-bold text-white"
-                        to="/"
+                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
+                        href="/"
+                        onClick={() => setOpen(false)}
                     >
                         Beranda
                     </Link>
                 </li>
                 <li>
                     <Link
-                        className="pr-10 w-full bg-[#020202] hover:text-[#F3D457] py-7 px-3 inline-block lg:cursor-pointer font-bold text-white"
-                        to="/"
+                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
+                        href="/layanan"
+                        onClick={() => setOpen(false)}
                     >
                         Layanan Kami
                     </Link>
                 </li>
                 {links.map((link) => (
-                    <li>
-                        <h1
-                            className="w-full bg-[#020202] py-7 px-3 inline-block cursor-pointer font-bold text-white  hover:text-[#F3D457]"
+                    <li key={link.id} className="border-b border-gray-800">
+                        <button
+                            type="button"
+                            className="w-full text-left py-4 px-2 flex items-center justify-between cursor-pointer font-bold text-white hover:text-[#F3D457]"
                             onClick={() =>
-                                heading !== link.name
-                                    ? setHeading(link.name)
-                                    : setHeading("")
+                                setHeading(heading !== link.name ? link.name : "")
                             }
                         >
-                            {" "}
-                            {link.name}
-                        </h1>
-                        {link.submenu && (
-                            <div className="w-full bg-[#020202]">
-                                <div>
-                                    <div
-                                        className={`
-                    ${heading === link.name ? "md:hidden" : "hidden"} 
-                  `}
-                                    >
-                                        {link.sublinks.map((mysublinks) => (
-                                            <div className="grid grid-cols-1" key={mysublinks.id}>
-                                                {mysublinks.sublink.map(
-                                                    (slink) => (
-                                                        <li key={slink.id} className="py-4 pl-7 font-semibold pr-5 text-sm text-white hover:text-[#F3D457]">
-                                                            <Link
-                                                                to={slink.link}
-                                                            >
-                                                                {slink.name}
-                                                            </Link>
-                                                        </li>
-                                                    )
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+                            <span>{link.name}</span>
+                            <span className="text-sm">
+                                {heading === link.name ? "▲" : "▼"}
+                            </span>
+                        </button>
+                        {link.submenu && heading === link.name && (
+                            <ul className="pl-5 pb-3 space-y-2">
+                                {link.sublinks.map((slink) => (
+                                    <li key={slink.id}>
+                                        <Link
+                                            href={slink.link}
+                                            className="block py-2 font-semibold text-sm text-gray-200 hover:text-[#F3D457]"
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            {slink.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         )}
                     </li>
                 ))}
                 <li>
                     <Link
-                        className="pr-10 w-full bg-[#020202] hover:text-[#F3D457] py-7 px-3 inline-block lg:cursor-pointer font-bold text-white"
-                        to="/"
+                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
+                        href={route("hubungikami.create")}
+                        onClick={() => setOpen(false)}
                     >
                         Kontak Kami
                     </Link>
                 </li>
             </ul>
-        </div>
+        </header>
     );
 };
 

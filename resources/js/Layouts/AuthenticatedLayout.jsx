@@ -1,13 +1,17 @@
 import { useState } from "react";
-import LogoDpi from "../assets/logo/dpilogo.png"
-import Dropdown from "@/Components/Dropdown";
+import LogoDpi from "../assets/logo/dpilogo.png";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const { url } = usePage();
+
+    const isDashboard = url === "/dashboard";
+    const isKegiatan = url.startsWith("/manajemenkegiatan");
+    const isArtikel = url.startsWith("/manajemenartikel");
 
     return (
         <div className="min-h-screen bg-gray-200">
@@ -17,58 +21,65 @@ export default function Authenticated({ user, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/dashboard">
-                                    <img src={LogoDpi} className="block h-9 w-auto fill-current text-gray-800" />
+                                    <img
+                                        src={LogoDpi}
+                                        alt="Daya Potensia Indonesia"
+                                        className="block h-9 w-auto fill-current text-gray-800"
+                                    />
                                 </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route("dashboard")}
-                                    active={route().current("dashboard")}
+                                    active={isDashboard}
                                 >
                                     Dashboard
                                 </NavLink>
 
                                 <NavLink
                                     href={route("manajemenkegiatan")}
-                                    active={route().current(
-                                        "manajemenkegiatan"
-                                    )}
+                                    active={isKegiatan}
                                 >
                                     Manajemen Kegiatan
                                 </NavLink>
 
                                 <NavLink
                                     href={route("manajemenartikel")}
-                                    active={route().current("manajemenartikel")}
+                                    active={isArtikel}
                                 >
                                     Manajemen Artikel
                                 </NavLink>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="ms-3 relative">
-                                        <Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                            className="text-gray-200 bg-red-600 px-4 py-1 rounded-lg text-sm hover:bg-red-800"
-                                        >
-                                            KELUAR
-                                        </Link>
-                                
-                            </div>
+                        <div className="hidden sm:flex sm:items-center sm:ms-6 gap-4">
+                            <Link
+                                href={route("profile.edit")}
+                                className="text-gray-200 hover:text-[#f0cc40] text-sm font-medium transition-colors"
+                            >
+                                Profil ({user.name})
+                            </Link>
+                            <Link
+                                href={route("logout")}
+                                method="post"
+                                as="button"
+                                className="text-gray-100 bg-red-600 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors cursor-pointer"
+                            >
+                                KELUAR
+                            </Link>
                         </div>
 
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
+                                type="button"
+                                aria-label="Toggle Menu"
                                 onClick={() =>
                                     setShowingNavigationDropdown(
                                         (previousState) => !previousState
                                     )
                                 }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none transition duration-150 ease-in-out"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -113,24 +124,39 @@ export default function Authenticated({ user, header, children }) {
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
                             href={route("dashboard")}
-                            active={route().current("dashboard")}
+                            active={isDashboard}
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("manajemenkegiatan")}
+                            active={isKegiatan}
+                        >
+                            Manajemen Kegiatan
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("manajemenartikel")}
+                            active={isArtikel}
+                        >
+                            Manajemen Artikel
+                        </ResponsiveNavLink>
                     </div>
 
-                    <div className="pt-4 pb-1 border-t border-gray-200">
+                    <div className="pt-4 pb-1 border-t border-gray-700">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
+                            <div className="font-medium text-base text-gray-100">
                                 {user.name}
                             </div>
-                            <div className="font-medium text-sm text-gray-500">
+                            <div className="font-medium text-sm text-gray-400">
                                 {user.email}
                             </div>
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            <ResponsiveNavLink
+                                href={route("profile.edit")}
+                                active={url === "/profile"}
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
@@ -138,7 +164,7 @@ export default function Authenticated({ user, header, children }) {
                                 href={route("logout")}
                                 as="button"
                             >
-                                Log Out
+                                Keluar
                             </ResponsiveNavLink>
                         </div>
                     </div>

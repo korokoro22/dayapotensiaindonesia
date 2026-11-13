@@ -1,67 +1,78 @@
 import React from "react";
-import Industri from "../../../assets/Layanan/industri.jpg";
-import Forensik from "../../../assets/Layanan/forensik.jpg";
-import Sosial from "../../../assets/Layanan/sosial.jpg";
 import { Link } from "@inertiajs/react";
 
-const KegiatanHeadline = ({ kegiatanTerbaru }) => {
+const KegiatanHeadline = ({ kegiatanTerbaru = [] }) => {
     const firstKegiatan = kegiatanTerbaru[0];
     const secondKegiatan = kegiatanTerbaru[1];
     const thirdKegiatan = kegiatanTerbaru[2];
+
+    if (!firstKegiatan) {
+        return null;
+    }
+
     return (
-        <div className="bg-[#E9E9E9] font-inter">
-            <div className="flex flex-col md:flex-row justify-center items-center py-10 gap-5 static xl:w-[70em] lg:w-[60em] md:w-[45em] m-auto">
+        <div className="bg-[#E9E9E9] font-inter px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-10 max-w-6xl mx-auto">
                 <Link
-                    className=" bg-cover bg-center xl:w-[30em] md:w-[20em] md:h-[30em] h-[14em] w-[20em] text-white bg-black rounded-xl"
+                    href={`/kegiatan/${firstKegiatan.id}`}
+                    className="relative bg-cover bg-center min-h-[16em] md:min-h-[30em] text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
                     style={{
                         backgroundImage: `url('/storage/${firstKegiatan.gambar}')`,
                     }}
-                    href={`/kegiatan/${firstKegiatan.id}`}
                 >
-                    <div className=" text-white pl-2 mt-[9.5em] md:mt-[26em] ">
-                        <p className=" text-lg"> {firstKegiatan.tanggal} </p>
-                        <h1 className="xl:text-2xl lg:text-base font-bold">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
+                    <div className="relative z-10 p-5">
+                        <p className="text-sm md:text-base text-gray-200">
+                            {firstKegiatan.tanggal}
+                        </p>
+                        <h2 className="xl:text-2xl lg:text-xl text-lg font-bold line-clamp-2">
                             {firstKegiatan.judul}
-                        </h1>
+                        </h2>
                     </div>
                 </Link>
 
-                <div className=" w-[20em] md:w-[25em] lg:w-[40em] h-[30em]">
-                    <Link href={`/kegiatan/${secondKegiatan.id}`}>
-                        <div
-                            className=" bg-cover h-[14em] text-white bg-black rounded-xl"
-                            style={{
-                                backgroundImage: `url('/storage/${secondKegiatan.gambar}')`,
-                            }}
-                        >
-                            <div className=" text-white pl-2 pt-[9.5em]  ">
-                                <p className=" text-lg">
-                                    {secondKegiatan.tanggal}
-                                </p>
-                                <h1 className="xl:text-2xl lg:text-xl font-bold">
-                                    {secondKegiatan.judul}
-                                </h1>
-                            </div>
-                        </div>
-                    </Link>
-                    <Link href={`/kegiatan/${thirdKegiatan.id}`}>
-                        <div
-                            className=" bg-cover h-[14em] md:mt-[2em] mt-5 text-white bg-black rounded-xl"
-                            style={{
-                                backgroundImage: `url('/storage/${thirdKegiatan.gambar}')`,
-                            }}
-                        >
-                            <div className=" text-white pl-2 pt-[9.5em]  ">
-                                <p className=" text-lg">
-                                    {thirdKegiatan.tanggal}
-                                </p>
-                                <h1 className="xl:text-2xl lg:text-xl font-bold">
-                                    {thirdKegiatan.judul}
-                                </h1>
-                            </div>
-                        </div>
-                    </Link>
-                </div>
+                {(secondKegiatan || thirdKegiatan) && (
+                    <div className="flex flex-col gap-5 justify-between">
+                        {secondKegiatan && (
+                            <Link
+                                href={`/kegiatan/${secondKegiatan.id}`}
+                                className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
+                                style={{
+                                    backgroundImage: `url('/storage/${secondKegiatan.gambar}')`,
+                                }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
+                                <div className="relative z-10 p-5">
+                                    <p className="text-sm md:text-base text-gray-200">
+                                        {secondKegiatan.tanggal}
+                                    </p>
+                                    <h2 className="xl:text-2xl lg:text-xl text-lg font-bold line-clamp-2">
+                                        {secondKegiatan.judul}
+                                    </h2>
+                                </div>
+                            </Link>
+                        )}
+                        {thirdKegiatan && (
+                            <Link
+                                href={`/kegiatan/${thirdKegiatan.id}`}
+                                className="relative bg-cover bg-center h-[14em] flex-1 text-white bg-black rounded-xl overflow-hidden flex flex-col justify-end group"
+                                style={{
+                                    backgroundImage: `url('/storage/${thirdKegiatan.gambar}')`,
+                                }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-colors"></div>
+                                <div className="relative z-10 p-5">
+                                    <p className="text-sm md:text-base text-gray-200">
+                                        {thirdKegiatan.tanggal}
+                                    </p>
+                                    <h2 className="xl:text-2xl lg:text-xl text-lg font-bold line-clamp-2">
+                                        {thirdKegiatan.judul}
+                                    </h2>
+                                </div>
+                            </Link>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

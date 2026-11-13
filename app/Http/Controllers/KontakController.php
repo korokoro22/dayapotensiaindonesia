@@ -22,8 +22,8 @@ class KontakController extends Controller
         $nama = $request->input('nama');
         $keluhan = $request->input('keluhan');
 
-        $whatsappNumber = '082248238013'; // Ganti dengan nomor WhatsApp tujuan
-        $message = "Nama: $nama\nKeluhan: $keluhan";
+        $whatsappNumber = '6285756297170';
+        $message = "Assalamu'alaikum, Selamat Pagi/Siang/Sore/Malam\nPerkenalkan saya,\n*Nama:* $nama\n*Keluhan:* $keluhan\nSaya ingin konsultasi, Terima kasih atas perhatiannya.";
         $url = "https://wa.me/$whatsappNumber?text=" . urlencode($message);
 
         return redirect()->away($url);
