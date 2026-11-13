@@ -194,4 +194,21 @@ class HostingSetupTest extends TestCase
 
         $this->assertStringStartsWith('https://', URL::to('/artikel'));
     }
+
+    public function test_pgsql_config_enables_emulated_prepares_for_neon_pooler(): void
+    {
+        $originalUrl = getenv('DATABASE_URL');
+
+        putenv('DATABASE_URL=postgresql://user:pass@ep-demo-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require');
+        $databaseConfig = require base_path('config/database.php');
+
+        if ($originalUrl === false) {
+            putenv('DATABASE_URL');
+        } else {
+            putenv("DATABASE_URL={$originalUrl}");
+        }
+
+        $options = $databaseConfig['connections']['pgsql']['options'] ?? [];
+        $this->assertTrue($options[\PDO::ATTR_EMULATE_PREPARES] ?? false);
+    }
 }

@@ -8,15 +8,23 @@ Project ini sudah dikonfigurasi untuk **Skema 1 (100% gratis, tanpa kartu kredit
 
 ---
 
-## Langkah 1 — Buat Database Gratis di Neon
+## Status Progres Setup
 
-1. Daftar / login ke **https://neon.tech** (bisa login pakai akun GitHub, tanpa kartu kredit).
-2. Buat project baru (pilih region **AWS Singapore (`ap-southeast-1`)** agar dekat dengan Indonesia & Render Singapore).
-3. Di halaman **Dashboard → Connect**, salin **Connection string** PostgreSQL-nya. Contoh formatnya:
-   ```text
-   postgresql://user:password@ep-xxxx-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
-   ```
-   *(Simpan URL ini untuk nilai `DATABASE_URL` pada Langkah 3.)*
+- [x] **Langkah 1 — Database Neon PostgreSQL** *(Selesai: project Neon region Singapore `ap-southeast-1` / `neondb` sudah dibuat dan connection string sudah disalin)*
+- [ ] **Langkah 2 — Cloudinary (Storage Gambar)**
+- [ ] **Langkah 3 — Deploy Blueprint di Render (`render.yaml`)**
+- [ ] **Langkah 4 — Sambungkan Custom Domain + SSL HTTPS**
+
+> **Catatan Keamanan:** Jangan pernah menempelkan atau menyimpan `DATABASE_URL` (berisi password), `CLOUDINARY_API_SECRET`, atau `ADMIN_PASSWORD` di file markdown/kode yang di-push ke GitHub. Cukup masukkan nilai rahasia tersebut langsung ke Environment Variables di Dashboard Render.
+
+---
+
+## Langkah 1 — Buat Database Gratis di Neon *(Selesai)*
+
+1. ~~Daftar / login ke **https://neon.tech** (bisa login pakai akun GitHub, tanpa kartu kredit).~~
+2. ~~Buat project baru (pilih region **AWS Singapore (`ap-southeast-1`)** agar dekat dengan Indonesia & Render Singapore).~~
+3. ~~Di halaman **Dashboard → Connect**, salin **Connection string** PostgreSQL-nya.~~
+   *(Catatan: Baik URL pooled (`-pooler`) maupun direct dari Neon sama-sama didukung otomatis oleh konfigurasi [config/database.php](config/database.php) dan `channel_binding=require` aman dibiarkan apa adanya. Simpan URL ini untuk `DATABASE_URL` pada Langkah 3; jika Anda sempat menempelkan password ke chat/tempat umum, disarankan klik **Reset password** di dashboard Neon sebelum memakainya di Render.)*
 
 ---
 

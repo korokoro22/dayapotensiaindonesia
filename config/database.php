@@ -76,6 +76,13 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
+            'options' => extension_loaded('pdo_pgsql') && (
+                filter_var(env('DB_PGSQL_EMULATE_PREPARES', false), FILTER_VALIDATE_BOOLEAN)
+                || str_contains((string) env('DATABASE_URL', ''), '-pooler')
+                || str_contains((string) env('DB_HOST', ''), '-pooler')
+            ) ? [
+                PDO::ATTR_EMULATE_PREPARES => true,
+            ] : [],
         ],
 
         'sqlsrv' => [
