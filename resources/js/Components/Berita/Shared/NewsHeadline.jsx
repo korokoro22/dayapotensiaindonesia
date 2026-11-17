@@ -60,3 +60,4 @@ const NewsHeadline = ({ items = [], basePath, label }) => {
 };
 
 export default NewsHeadline;
+

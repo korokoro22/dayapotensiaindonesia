@@ -51,3 +51,4 @@ const NewsArticleBody = ({ item, backPath, backLabel, categoryLabel }) => {
 };
 
 export default NewsArticleBody;
+

@@ -44,3 +44,4 @@ const NewsHero = ({ badge, title, subtitle, breadcrumbLabel }) => {
 };
 
 export default NewsHero;
+
