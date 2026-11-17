@@ -1,26 +1,26 @@
 const penunjangData = () => [
     {
         id: 1,
-        title: "Moksa",
-        body: "Lembaga non profit yang dibentuk oleh Daya Potensia Indonesia yang berfokus pada krisis kemanusiaan dan pengabdian masyarakat.",
+        title: "MOKSA DPI",
+        body: "Pusat krisis dan pengabdian masyarakat yang dibentuk Daya Potensia Indonesia sejak 2023 untuk layanan krisis kemanusiaan, pemulihan trauma, dan penguatan komunitas berbasis panduan IASC MHPSS, Kode Etik HIMPSI, serta UU No. 23 Tahun 2022.",
         image: "Moksa",
     },
     {
         id: 2,
-        title: "Persiapan Karir",
-        body: "Kegiatan yang berfokus untuk meningkatkan kemampuan peserta dalam mengetahui dan memahami dirinya dalam rangka penentuan karir di masa depan.",
+        title: "Persiapan Karier",
+        body: "Program terarah yang membantu pelajar, mahasiswa, dan pencari kerja mengenali potensi, minat, serta kesiapan pribadi dalam menentukan pilihan karier masa depan.",
         image: "Ruangan",
     },
     {
         id: 3,
         title: "Penanganan Psikologis Pasca Situasi Krisis",
-        body: "Sejak 2018, tim Daya Potensia Indonesia telah melakukan penanganan psikologis pasca situasi krisis, seperti bencana alam dan kejadian fatality. Penanganan yang dilakukan adalah asesmen, psikoedukasi, konseling, dan membentuk kelompok dukungan.",
+        body: "Sejak 2018 tim DPI aktif melakukan asesmen, psikoedukasi, dukungan psikologis awal, konseling, serta pembentukan kelompok dukungan bagi penyintas bencana alam dan kejadian darurat.",
         image: "Alat",
     },
     {
         id: 4,
         title: "Peningkatan Kompetensi Lulusan Psikologi",
-        body: "Kegiatan yang bertujuan untuk meningkatkan kemampuan dan kompetensi lulusan psikologi, yang dapat menunjang perkembangan karirnya ke depan.",
+        body: "Pelatihan aplikatif guna meningkatkan keterampilan praktis lulusan psikologi dalam asesmen, observasi, skoring, wawancara, dan kesiapan praktik profesional.",
         image: "Penunjang",
     },
 ];

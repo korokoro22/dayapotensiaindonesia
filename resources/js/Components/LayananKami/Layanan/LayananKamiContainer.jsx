@@ -1,21 +1,16 @@
-import React from 'react'
-import LayananKamiCard from './LayananKamiCard'
+import React from "react";
+import LayananKamiCard from "./LayananKamiCard";
 
-const LayananKamiContainer = ({ layanans }) => {
-  return (
-    <div className='bg-[#E9E9E9] px-4'>
-        <div className='py-10 flex flex-col gap-6 max-w-4xl mx-auto'>
-            {
-                layanans.map((layanan) => (
-                    <LayananKamiCard
-                        key={layanan.id}
-                        {...layanan}
-                    />
-                ))
-            }
-        </div>
-    </div>
-  )
-}
+const LayananKamiContainer = ({ layanans = [] }) => {
+    return (
+        <section className="bg-[#F4F6FA] py-14 md:py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto space-y-6">
+                {layanans.map((layanan) => (
+                    <LayananKamiCard key={layanan.id} {...layanan} />
+                ))}
+            </div>
+        </section>
+    );
+};
 
-export default LayananKamiContainer
+export default LayananKamiContainer;

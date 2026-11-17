@@ -1,27 +1,38 @@
-import ArtikelContainer from "@/Components/Berita/Artikel/ArtikelContainer";
-import ArtikelHeadline from "@/Components/Berita/Artikel/ArtikelHeadline";
-import ArtikelLainnya from "@/Components/Berita/Artikel/ArtikelLainnya";
-import HeroArtikel from "@/Components/Berita/Artikel/HeroArtikel";
-import { cobaPaginator } from "@/utils/paginator";
-import Footer from "@/Components/Footer";
-import Header from "@/Components/Header";
 import React from "react";
 import { Head } from "@inertiajs/react";
+import Header from "@/Components/Header";
+import Footer from "@/Components/Footer";
+import NewsHero from "@/Components/Berita/Shared/NewsHero";
+import NewsHeadline from "@/Components/Berita/Shared/NewsHeadline";
+import NewsGrid from "@/Components/Berita/Shared/NewsGrid";
+import CtaBanner from "@/Components/Homepage/CtaBanner";
 
-const coba = cobaPaginator();
-
-// const nama = coba.filter( (cob) => cob.id < 5)
-// console.log(nama)
-
-const Artikel = ({ artikel, artikelsTerbaru }) => {
+const Artikel = ({ artikel = [], artikelsTerbaru = [] }) => {
     return (
-        <div>
-            <Head title="Artikel" />
+        <div className="min-h-screen flex flex-col bg-[#F4F6FA]">
+            <Head title="Artikel Psikologi" />
             <Header />
-            <HeroArtikel />
-            <ArtikelHeadline artikelTerbaru={artikelsTerbaru} />
-            <ArtikelLainnya />
-            <ArtikelContainer cobas={coba} artikels={artikel} />
+            <main className="flex-1">
+                <NewsHero
+                    breadcrumbLabel="Artikel"
+                    badge="PUBLIKASI & EDUKASI DPI"
+                    title="Artikel & Wawasan Psikologi"
+                    subtitle="Tulisan edukatif seputar kesehatan mental, pengembangan sumber daya manusia, keluarga, pendidikan, dan isu psikologi terkini dari tim psikolog DPI."
+                />
+                <NewsHeadline
+                    items={artikelsTerbaru}
+                    basePath="/artikel"
+                    label="Artikel"
+                />
+                <NewsGrid
+                    items={artikel}
+                    basePath="/artikel"
+                    heading="Semua Artikel"
+                    label="Artikel"
+                    emptyText="Belum ada artikel yang dipublikasikan."
+                />
+                <CtaBanner />
+            </main>
             <Footer />
         </div>
     );

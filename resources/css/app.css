@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::selection {
+        background-color: #f3ba33;
+        color: #0d1e3a;
+    }
+}
+
+.slick-dots li button:before {
+    color: #132b52 !important;
+    opacity: 0.25 !important;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #132b52 !important;
+    opacity: 1 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: #132b52 !important;
+}

@@ -14,18 +14,25 @@ export default function Authenticated({ user, header, children }) {
     const isArtikel = url.startsWith("/manajemenartikel");
 
     return (
-        <div className="min-h-screen bg-gray-200">
-            <nav className="bg-[#111C21] border-b border-gray-800">
+        <div className="min-h-screen bg-[#F4F6FA] font-inter">
+            <div className="h-1 w-full bg-gradient-to-r from-[#6A1B9A] via-[#F3BA33] to-[#1E4073]" />
+            <nav className="bg-[#132B52] border-b border-white/10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/dashboard">
+                                <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-2.5"
+                                >
                                     <img
                                         src={LogoDpi}
                                         alt="Daya Potensia Indonesia"
-                                        className="block h-9 w-auto fill-current text-gray-800"
+                                        className="block h-8 w-auto"
                                     />
+                                    <span className="hidden md:inline font-display font-bold text-sm text-white">
+                                        Admin DPI
+                                    </span>
                                 </Link>
                             </div>
 
@@ -55,8 +62,14 @@ export default function Authenticated({ user, header, children }) {
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6 gap-4">
                             <Link
+                                href="/"
+                                className="text-slate-300 hover:text-[#F3BA33] text-xs font-semibold transition-colors"
+                            >
+                                Lihat Website ↗
+                            </Link>
+                            <Link
                                 href={route("profile.edit")}
-                                className="text-gray-200 hover:text-[#f0cc40] text-sm font-medium transition-colors"
+                                className="text-slate-100 hover:text-[#F3BA33] text-sm font-medium transition-colors"
                             >
                                 Profil ({user.name})
                             </Link>
@@ -64,7 +77,7 @@ export default function Authenticated({ user, header, children }) {
                                 href={route("logout")}
                                 method="post"
                                 as="button"
-                                className="text-gray-100 bg-red-600 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors cursor-pointer"
+                                className="text-white bg-red-600/90 px-4 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-600 transition-colors cursor-pointer"
                             >
                                 KELUAR
                             </Link>
@@ -79,7 +92,7 @@ export default function Authenticated({ user, header, children }) {
                                         (previousState) => !previousState
                                     )
                                 }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none transition duration-150 ease-in-out"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none transition duration-150 ease-in-out"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -118,7 +131,7 @@ export default function Authenticated({ user, header, children }) {
                 <div
                     className={
                         (showingNavigationDropdown ? "block" : "hidden") +
-                        " sm:hidden"
+                        " sm:hidden bg-[#0D1E3A]"
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
@@ -140,14 +153,17 @@ export default function Authenticated({ user, header, children }) {
                         >
                             Manajemen Artikel
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href="/">
+                            Lihat Website
+                        </ResponsiveNavLink>
                     </div>
 
-                    <div className="pt-4 pb-1 border-t border-gray-700">
+                    <div className="pt-4 pb-1 border-t border-white/10">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-100">
+                            <div className="font-medium text-base text-slate-100">
                                 {user.name}
                             </div>
-                            <div className="font-medium text-sm text-gray-400">
+                            <div className="font-medium text-sm text-slate-400">
                                 {user.email}
                             </div>
                         </div>
@@ -172,13 +188,13 @@ export default function Authenticated({ user, header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-[#111C21] shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">
+                <header className="bg-white border-b border-slate-200/80 shadow-xs">
+                    <div className="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8 text-[#132B52]">
                         {header}
                     </div>
                 </header>
             )}
-            <main className="">{children}</main>
+            <main>{children}</main>
         </div>
     );
 }

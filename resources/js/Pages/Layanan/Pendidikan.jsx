@@ -1,20 +1,6 @@
-import Footer from '@/Components/Footer'
-import Header from '@/Components/Header'
-import ContainerPendidikan from '@/Components/LayananKonten/Pendidikan/ContainerPendidikan'
-import HeroPendidikan from '@/Components/LayananKonten/Pendidikan/HeroPendidikan'
-import React from 'react'
-import { Head } from '@inertiajs/react'
+import React from "react";
+import ServiceDetailLayout from "@/Components/LayananKonten/ServiceDetailLayout";
 
-const Pendidikan = () => {
-  return (
-    <div>
-        <Head title="Psikologi Pendidikan" />
-        <Header />
-        <HeroPendidikan />
-        <ContainerPendidikan />
-        <Footer />
-    </div>
-  )
+export default function Pendidikan() {
+    return <ServiceDetailLayout serviceKey="pendidikan" />;
 }
-
-export default Pendidikan

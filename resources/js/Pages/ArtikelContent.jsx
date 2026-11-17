@@ -1,21 +1,29 @@
-// import ArtikelContainer from "@/Components/Berita/Artikel/ArtikelContainer";
-import ContentArtikel from "@/Components/Berita/Artikel/ArtikelContent/ContentArtikel";
-// import ArtikelLainnya from "@/Components/Berita/Artikel/ArtikelLainnya";
-import HeroArtikel from "@/Components/Berita/Artikel/HeroArtikel";
-import Footer from "@/Components/Footer";
-import Header from "@/Components/Header";
 import React from "react";
 import { Head } from "@inertiajs/react";
+import Header from "@/Components/Header";
+import Footer from "@/Components/Footer";
+import NewsHero from "@/Components/Berita/Shared/NewsHero";
+import NewsArticleBody from "@/Components/Berita/Shared/NewsArticleBody";
 
 const ArtikelContent = ({ artikels }) => {
     return (
-        <div className="bg-[#E9E9E9]">
+        <div className="min-h-screen flex flex-col bg-[#F4F6FA]">
             <Head title={artikels?.judul || "Detail Artikel"} />
             <Header />
-            <HeroArtikel />
-            <ContentArtikel artikel={artikels} />
-            {/* <ArtikelLainnya />
-            <ArtikelContainer /> */}
+            <main className="flex-1">
+                <NewsHero
+                    breadcrumbLabel="Artikel"
+                    badge="PUBLIKASI & EDUKASI DPI"
+                    title="Artikel Daya Potensia Indonesia"
+                    subtitle="Edukasi psikologi berbasis bukti ilmiah untuk individu, keluarga, dan organisasi."
+                />
+                <NewsArticleBody
+                    item={artikels}
+                    backPath="/artikel"
+                    backLabel="Kembali ke Daftar Artikel"
+                    categoryLabel="Artikel Psikologi"
+                />
+            </main>
             <Footer />
         </div>
     );

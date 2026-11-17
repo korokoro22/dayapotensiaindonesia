@@ -1,155 +1,300 @@
 import React, { useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
 import DpiLogo from "../assets/logo/dpilogo.png";
-import { Link } from "@inertiajs/react";
+import { layananData } from "@/utils/layanan";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
-    const [heading, setHeading] = useState("");
+    const [mobileSection, setMobileSection] = useState("");
+    const { url } = usePage();
 
-    const links = [
-        {
-            id: 1,
-            name: "Berita",
-            submenu: true,
-            sublinks: [
-                { id: 1, name: "Kegiatan", link: "/kegiatan" },
-                { id: 2, name: "Artikel", link: "/artikel" },
-            ],
-        },
-    ];
+    const services = layananData();
+    const isActive = (path) => (path === "/" ? url === "/" : url.startsWith(path));
+    const isServiceRoute =
+        isActive("/layanan") ||
+        services.some((service) => isActive(service.link));
+    const isNewsRoute = isActive("/kegiatan") || isActive("/artikel");
 
     return (
-        <header className="w-full h-24 bg-[#020202] flex sticky z-50 items-center justify-between top-0 px-4 lg:px-10">
-            <Link href="/" className="text-white flex flex-col items-start">
-                <img src={DpiLogo} alt="Daya Potensia Indonesia" className="md:h-12 h-10" />
-                <h1 className="font-inter font-semibold text-xs lg:text-lg">
-                    Daya Potensia Indonesia
-                </h1>
-            </Link>
+        <header className="sticky top-0 z-50 w-full bg-[#132B52]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+            <div className="h-1 w-full bg-gradient-to-r from-[#6A1B9A] via-[#F3BA33] to-[#1E4073]" />
+            <div className="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+                <Link
+                    href="/"
+                    className="flex items-center gap-3 shrink-0 group"
+                >
+                    <img
+                        src={DpiLogo}
+                        alt="Logo Daya Potensia Indonesia"
+                        className="h-9 sm:h-10 w-auto object-contain"
+                    />
+                    <div className="leading-tight">
+                        <span className="block font-display font-bold text-sm sm:text-base text-white tracking-tight group-hover:text-[#F3BA33] transition-colors">
+                            Daya Potensia Indonesia
+                        </span>
+                        <span className="block text-[11px] font-medium text-slate-300">
+                            Biro Psikologi &amp; Human Resource
+                        </span>
+                    </div>
+                </Link>
 
-            <button
-                type="button"
-                aria-label={open ? "Tutup menu" : "Buka menu"}
-                className="lg:hidden text-3xl text-white p-2 cursor-pointer"
-                onClick={() => setOpen(!open)}
-            >
-                <ion-icon name={open ? "close" : "menu"}></ion-icon>
-            </button>
-
-            <ul className="text-white lg:flex items-center hidden gap-8 xl:gap-12">
-                <li>
+                {/* Desktop Navigation */}
+                <nav
+                    aria-label="Navigasi utama"
+                    className="hidden lg:flex items-center gap-7"
+                >
                     <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
                         href="/"
+                        className={`font-medium text-sm transition-colors py-1 border-b-2 ${
+                            isActive("/")
+                                ? "text-[#F3BA33] border-[#F3BA33]"
+                                : "text-slate-100 border-transparent hover:text-[#F3BA33]"
+                        }`}
                     >
                         Beranda
                     </Link>
-                </li>
-                <li>
-                    <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
-                        href="/layanan"
-                    >
-                        Layanan Kami
-                    </Link>
-                </li>
-                <li>
-                    <div className="dropdown dropdown-end">
-                        <div
-                            tabIndex={0}
-                            role="button"
-                            className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
+
+                    <div className="dropdown dropdown-hover">
+                        <Link
+                            href="/layanan"
+                            className={`inline-flex items-center gap-1 font-medium text-sm transition-colors py-1 border-b-2 ${
+                                isServiceRoute
+                                    ? "text-[#F3BA33] border-[#F3BA33]"
+                                    : "text-slate-100 border-transparent hover:text-[#F3BA33]"
+                            }`}
                         >
-                            Berita
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content z-[1] menu p-2 mt-4 shadow bg-base-100 rounded-box w-40 text-black"
-                        >
+                            <span>Layanan Kami</span>
+                            <svg
+                                className="w-3.5 h-3.5 opacity-80"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19 9l-7 7-7-7"
+                                />
+                            </svg>
+                        </Link>
+                        <ul className="dropdown-content z-30 menu p-2 shadow-xl bg-white rounded-xl w-64 text-slate-800 border border-slate-100">
                             <li>
-                                <Link href="/kegiatan">Kegiatan</Link>
+                                <Link
+                                    href="/layanan"
+                                    className="font-semibold text-[#132B52] hover:bg-slate-100"
+                                >
+                                    Semua Bidang Layanan
+                                </Link>
+                            </li>
+                            <div className="my-1 border-t border-slate-100" />
+                            {services.map((service) => (
+                                <li key={service.id}>
+                                    <Link
+                                        href={service.link}
+                                        className={`text-sm hover:bg-slate-100 ${
+                                            isActive(service.link)
+                                                ? "font-semibold text-[#132B52] bg-amber-50"
+                                                : ""
+                                        }`}
+                                    >
+                                        {service.shortTitle}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="dropdown dropdown-hover">
+                        <button
+                            type="button"
+                            className={`inline-flex items-center gap-1 font-medium text-sm transition-colors py-1 border-b-2 cursor-pointer ${
+                                isNewsRoute
+                                    ? "text-[#F3BA33] border-[#F3BA33]"
+                                    : "text-slate-100 border-transparent hover:text-[#F3BA33]"
+                            }`}
+                        >
+                            <span>Publikasi</span>
+                            <svg
+                                className="w-3.5 h-3.5 opacity-80"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19 9l-7 7-7-7"
+                                />
+                            </svg>
+                        </button>
+                        <ul className="dropdown-content z-30 menu p-2 shadow-xl bg-white rounded-xl w-44 text-slate-800 border border-slate-100">
+                            <li>
+                                <Link
+                                    href="/kegiatan"
+                                    className="hover:bg-slate-100"
+                                >
+                                    Kegiatan
+                                </Link>
                             </li>
                             <li>
-                                <Link href="/artikel">Artikel</Link>
+                                <Link
+                                    href="/artikel"
+                                    className="hover:bg-slate-100"
+                                >
+                                    Artikel
+                                </Link>
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li>
+
                     <Link
-                        className="font-inter font-medium xl:text-xl lg:text-lg hover:text-[#F3D457] transition-colors"
                         href={route("hubungikami.create")}
+                        className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all shadow-sm ${
+                            isActive("/hubungikami")
+                                ? "bg-white text-[#132B52]"
+                                : "bg-[#F3BA33] text-[#0D1E3A] hover:bg-[#eab024]"
+                        }`}
                     >
-                        Kontak Kami
+                        Hubungi Kami
                     </Link>
-                </li>
-            </ul>
+                </nav>
+
+                {/* Mobile Toggle */}
+                <button
+                    type="button"
+                    aria-label={open ? "Tutup menu" : "Buka menu"}
+                    className="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-white hover:bg-white/10 transition-colors cursor-pointer"
+                    onClick={() => setOpen(!open)}
+                >
+                    {open ? (
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    ) : (
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                        </svg>
+                    )}
+                </button>
+            </div>
 
             {/* Mobile Drawer */}
-            <ul
-                className={`lg:hidden fixed top-24 w-full h-[calc(100vh-6rem)] bg-[#020202] overflow-y-auto px-6 py-6 z-40 transition-all duration-300 ${
-                    open ? "left-0" : "-left-full"
-                }`}
-            >
-                <li>
+            {open && (
+                <div className="lg:hidden bg-[#0D1E3A] border-t border-white/10 px-6 py-5 space-y-2 max-h-[calc(100vh-5.25rem)] overflow-y-auto">
                     <Link
-                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
                         href="/"
                         onClick={() => setOpen(false)}
+                        className="block py-2.5 text-sm font-semibold text-white hover:text-[#F3BA33] border-b border-white/10"
                     >
                         Beranda
                     </Link>
-                </li>
-                <li>
-                    <Link
-                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
-                        href="/layanan"
-                        onClick={() => setOpen(false)}
-                    >
-                        Layanan Kami
-                    </Link>
-                </li>
-                {links.map((link) => (
-                    <li key={link.id} className="border-b border-gray-800">
+
+                    <div className="border-b border-white/10">
                         <button
                             type="button"
-                            className="w-full text-left py-4 px-2 flex items-center justify-between cursor-pointer font-bold text-white hover:text-[#F3D457]"
                             onClick={() =>
-                                setHeading(heading !== link.name ? link.name : "")
+                                setMobileSection(
+                                    mobileSection === "layanan" ? "" : "layanan"
+                                )
                             }
+                            className="w-full py-2.5 flex items-center justify-between text-sm font-semibold text-white hover:text-[#F3BA33]"
                         >
-                            <span>{link.name}</span>
-                            <span className="text-sm">
-                                {heading === link.name ? "▲" : "▼"}
+                            <span>Layanan Kami</span>
+                            <span className="text-xs text-[#F3BA33]">
+                                {mobileSection === "layanan" ? "▲" : "▼"}
                             </span>
                         </button>
-                        {link.submenu && heading === link.name && (
-                            <ul className="pl-5 pb-3 space-y-2">
-                                {link.sublinks.map((slink) => (
-                                    <li key={slink.id}>
-                                        <Link
-                                            href={slink.link}
-                                            className="block py-2 font-semibold text-sm text-gray-200 hover:text-[#F3D457]"
-                                            onClick={() => setOpen(false)}
-                                        >
-                                            {slink.name}
-                                        </Link>
-                                    </li>
+                        {mobileSection === "layanan" && (
+                            <div className="pl-4 pb-3 space-y-1.5">
+                                <Link
+                                    href="/layanan"
+                                    onClick={() => setOpen(false)}
+                                    className="block py-1.5 text-sm font-semibold text-[#F3BA33]"
+                                >
+                                    Semua Bidang Layanan
+                                </Link>
+                                {services.map((service) => (
+                                    <Link
+                                        key={service.id}
+                                        href={service.link}
+                                        onClick={() => setOpen(false)}
+                                        className="block py-1.5 text-sm text-slate-200 hover:text-[#F3BA33]"
+                                    >
+                                        {service.shortTitle}
+                                    </Link>
                                 ))}
-                            </ul>
+                            </div>
                         )}
-                    </li>
-                ))}
-                <li>
-                    <Link
-                        className="w-full hover:text-[#F3D457] py-4 px-2 block font-bold text-white border-b border-gray-800"
-                        href={route("hubungikami.create")}
-                        onClick={() => setOpen(false)}
-                    >
-                        Kontak Kami
-                    </Link>
-                </li>
-            </ul>
+                    </div>
+
+                    <div className="border-b border-white/10">
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setMobileSection(
+                                    mobileSection === "berita" ? "" : "berita"
+                                )
+                            }
+                            className="w-full py-2.5 flex items-center justify-between text-sm font-semibold text-white hover:text-[#F3BA33]"
+                        >
+                            <span>Publikasi</span>
+                            <span className="text-xs text-[#F3BA33]">
+                                {mobileSection === "berita" ? "▲" : "▼"}
+                            </span>
+                        </button>
+                        {mobileSection === "berita" && (
+                            <div className="pl-4 pb-3 space-y-1.5">
+                                <Link
+                                    href="/kegiatan"
+                                    onClick={() => setOpen(false)}
+                                    className="block py-1.5 text-sm text-slate-200 hover:text-[#F3BA33]"
+                                >
+                                    Kegiatan
+                                </Link>
+                                <Link
+                                    href="/artikel"
+                                    onClick={() => setOpen(false)}
+                                    className="block py-1.5 text-sm text-slate-200 hover:text-[#F3BA33]"
+                                >
+                                    Artikel
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="pt-3">
+                        <Link
+                            href={route("hubungikami.create")}
+                            onClick={() => setOpen(false)}
+                            className="block w-full text-center rounded-full bg-[#F3BA33] text-[#0D1E3A] font-semibold text-sm py-3 hover:bg-[#eab024] transition-colors"
+                        >
+                            Hubungi &amp; Konsultasi
+                        </Link>
+                    </div>
+                </div>
+            )}
         </header>
     );
 };

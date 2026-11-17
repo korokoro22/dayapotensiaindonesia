@@ -13,11 +13,27 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                inter: ['inter'],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                inter: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['Plus Jakarta Sans', 'Inter', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                dpi: {
+                    navy: '#132B52',
+                    'navy-dark': '#0D1E3A',
+                    'navy-light': '#1E4073',
+                    gold: '#F3BA33',
+                    'gold-dark': '#DDA31C',
+                    surface: '#F4F6FA',
+                    purple: '#6A1B9A',
+                },
             },
         },
     },
 
-    plugins: [forms, require('daisyui'),],
+    daisyui: {
+        themes: ['light'],
+    },
+
+    plugins: [forms, require('daisyui')],
 };

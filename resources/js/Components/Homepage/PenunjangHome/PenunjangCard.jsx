@@ -1,21 +1,19 @@
 import React from "react";
-import Penunjang from "../../../assets/Penunjang/Penunjang.jpg";
-const PenunjangCard = ({ title, body }) => {
+
+const PenunjangCard = ({ title, body, index }) => {
     return (
-        <div className="font-inter bg-[#1A1A1A] w-full min-h-[13rem] text-white flex md:flex-row flex-col-reverse rounded-xl overflow-hidden shadow-lg">
-            <div className="p-6 flex-1 flex flex-col justify-center">
-                <h3 className="md:text-xl text-base font-bold mb-2 text-center md:text-start">
+        <div className="rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition-colors flex flex-col justify-between font-inter">
+            <div>
+                <span className="inline-block text-xs font-bold text-[#F3BA33] mb-2">
+                    PROGRAM {String((index ?? 0) + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-display text-lg font-bold text-white leading-snug">
                     {title}
                 </h3>
-                <p className="text-justify md:text-start text-sm text-gray-200 leading-relaxed">
+                <p className="mt-2.5 text-sm text-slate-300 leading-relaxed">
                     {body}
                 </p>
             </div>
-            <img
-                src={Penunjang}
-                alt={title}
-                className="h-48 md:h-auto md:w-[11rem] w-full shrink-0 object-cover"
-            />
         </div>
     );
 };

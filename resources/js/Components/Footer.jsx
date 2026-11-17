@@ -1,90 +1,159 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import Facebook from "../assets/logo/Sosmed/facebook.png"
-import Instagram from "../assets/logo/Sosmed/instagram.png"
-import Linkedin from "../assets/logo/Sosmed/linkedin.png"
-import Whatsapp from "../assets/logo/Sosmed/whatsapp.png"
-import Dpilogo from "../assets/logo/dpilogo.png"
-// import Dpilogo2 from "../assets/logo/dpilogo2.png"
+import DpiLogo from "../assets/logo/dpilogo.png";
+import { companyProfile } from "@/utils/companyProfile";
+import { layananData } from "@/utils/layanan";
 
 const Footer = () => {
+    const services = layananData();
+
     return (
-        <footer className="w-full font-inter bg-black text-white">
-            <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-start gap-10">
-                <div>
-                    <h2 className="text-2xl font-bold border-l-4 border-white pl-4 uppercase">
-                        Kontak
-                    </h2>
-                    <p className="pt-6 text-base md:text-lg leading-relaxed">
-                        Jl. Raya Pendidikan Blok G1 No. 9,
-                        <br /> Makassar, Sulawesi Selatan.
-                    </p>
-                    <p className="py-4 text-base md:text-lg">
-                        <a
-                            href="mailto:dayapotensiaindonesia@gmail.com"
-                            className="hover:text-[#F3D457] transition-colors break-all"
-                        >
-                            dayapotensiaindonesia@gmail.com
-                        </a>
-                    </p>
-                    <div className="flex gap-4 items-center">
-                        <img src={Facebook} alt="Facebook" className="w-9 h-9 object-contain" />
-                        <img src={Instagram} alt="Instagram" className="w-9 h-9 object-contain" />
-                        <img src={Linkedin} alt="LinkedIn" className="w-9 h-9 object-contain" />
-                        <a
-                            href="https://wa.me/6285756297170"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="WhatsApp Daya Potensia Indonesia"
-                        >
-                            <img src={Whatsapp} alt="WhatsApp" className="w-9 h-9 object-contain hover:opacity-80 transition-opacity" />
-                        </a>
+        <footer className="w-full bg-[#0D1E3A] text-slate-200 font-inter">
+            <div className="h-1 w-full bg-gradient-to-r from-[#6A1B9A] via-[#F3BA33] to-[#1E4073]" />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+                {/* Brand Column */}
+                <div className="lg:col-span-4 space-y-4">
+                    <div className="flex items-center gap-3">
+                        <img
+                            src={DpiLogo}
+                            alt="Logo Daya Potensia Indonesia"
+                            className="h-11 w-auto object-contain"
+                        />
+                        <div>
+                            <h2 className="font-display font-bold text-lg text-white leading-tight">
+                                Daya Potensia Indonesia
+                            </h2>
+                            <p className="text-xs text-[#F3BA33] font-medium">
+                                {companyProfile.subBrand}
+                            </p>
+                        </div>
                     </div>
+                    <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
+                        &ldquo;{companyProfile.heroTagline}&rdquo;
+                    </p>
+                    <p className="text-xs text-slate-400">
+                        Berdiri sejak {companyProfile.foundedDate} · Layanan Psikologi Berizin Praktik Aktif &amp; Berstandar Kode Etik HIMPSI.
+                    </p>
                 </div>
-                <div>
-                    <h2 className="text-2xl font-bold border-l-4 border-white pl-4 uppercase">
-                        Layanan
-                    </h2>
-                    <ul className="pt-6 space-y-2 text-base md:text-lg">
+
+                {/* Layanan Column */}
+                <div className="lg:col-span-3">
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#F3BA33]" />
+                        Bidang Layanan
+                    </h3>
+                    <ul className="space-y-2.5 text-sm">
+                        {services.map((service) => (
+                            <li key={service.id}>
+                                <Link
+                                    href={service.link}
+                                    className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                                >
+                                    {service.shortTitle}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Navigasi Column */}
+                <div className="lg:col-span-2">
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#F3BA33]" />
+                        Tautan
+                    </h3>
+                    <ul className="space-y-2.5 text-sm">
                         <li>
-                            <Link href="/industri" className="hover:text-[#F3D457] transition-colors">
-                                Industri/Organisasi
+                            <Link
+                                href="/"
+                                className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                            >
+                                Beranda
                             </Link>
                         </li>
                         <li>
-                            <Link href="/klinis" className="hover:text-[#F3D457] transition-colors">
-                                Klinis
+                            <Link
+                                href="/layanan"
+                                className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                            >
+                                Semua Layanan
                             </Link>
                         </li>
                         <li>
-                            <Link href="/forensik" className="hover:text-[#F3D457] transition-colors">
-                                Forensik
+                            <Link
+                                href="/kegiatan"
+                                className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                            >
+                                Kegiatan
                             </Link>
                         </li>
                         <li>
-                            <Link href="/pendidikan" className="hover:text-[#F3D457] transition-colors">
-                                Pendidikan
+                            <Link
+                                href="/artikel"
+                                className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                            >
+                                Artikel
                             </Link>
                         </li>
                         <li>
-                            <Link href="/sosial" className="hover:text-[#F3D457] transition-colors">
-                                Bidang Psikologi Sosial
+                            <Link
+                                href={route("hubungikami.create")}
+                                className="text-slate-300 hover:text-[#F3BA33] transition-colors"
+                            >
+                                Hubungi Kami
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <div className="self-center md:self-start">
-                    <img
-                        src={Dpilogo}
-                        alt="Logo Daya Potensia Indonesia"
-                        className="w-40 md:w-52 lg:w-64"
-                    />
+
+                {/* Kontak Column */}
+                <div className="lg:col-span-3 space-y-3 text-sm">
+                    <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#F3BA33]" />
+                        Kontak Resmi
+                    </h3>
+                    <p className="text-slate-300 leading-relaxed">
+                        {companyProfile.contact.address}
+                    </p>
+                    <p>
+                        <span className="text-slate-400">Telp / WhatsApp: </span>
+                        <a
+                            href={`https://wa.me/${companyProfile.contact.whatsappNumber}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-[#F3BA33] hover:underline"
+                        >
+                            {companyProfile.contact.phoneDisplay}
+                        </a>
+                    </p>
+                    <p>
+                        <a
+                            href={`mailto:${companyProfile.contact.email}`}
+                            className="text-slate-300 hover:text-[#F3BA33] transition-colors break-all"
+                        >
+                            {companyProfile.contact.email}
+                        </a>
+                    </p>
+                    <p className="text-xs text-slate-400">
+                        Instagram: {companyProfile.contact.instagramHandle} · LinkedIn: {companyProfile.contact.linkedinName}
+                    </p>
+                    <div className="pt-2 border-t border-white/10 text-xs text-slate-400">
+                        <span className="font-semibold text-slate-200">
+                            MOKSA DPI (Krisis &amp; Sosial):
+                        </span>{" "}
+                        {companyProfile.moksaContact.phoneDisplay} ·{" "}
+                        {companyProfile.moksaContact.instagramHandle}
+                    </div>
                 </div>
             </div>
-            <div className="bg-[#141414] py-5 px-4 text-center flex justify-center items-center">
-                <p className="text-white font-semibold text-sm">
-                    Copyright © 2024 Daya Potensia Indonesia
-                </p>
+
+            <div className="border-t border-white/10 bg-[#09152B] py-5 px-4">
+                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+                    <p>
+                        Copyright © 2026 Daya Potensia Indonesia. Biro Psikologi &amp; Human Resource.
+                    </p>
+                    <p>Makassar, Sulawesi Selatan</p>
+                </div>
             </div>
         </footer>
     );
